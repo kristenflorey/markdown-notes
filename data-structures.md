@@ -7,7 +7,7 @@
   - [Binary Trees](#binarytrees)
   - [Graphs](#graphs)
 
-## Linked Lists <a id="linkedlist"></a>
+## Linked Lists <a class="linkedlist"></a>
 
 - Data structure that contains a head, tail, and length property
 - Consist of <b>nodes</b> and each node has a value and a pointer to another node or null

@@ -1,9 +1,7 @@
 # Ajax
-  - **Ajax** is a group of different technologies that work together to allow a website to communicate with a server in the background without requiring the website to reload in order to display new changes.
+  - Ajax is a group of different technologies that work together to allow a website to communicate with a server in the background without requiring the website to reload in order to display new changes.
     - when a change happens, the server is no longer responsible for updating the HTML and then sending the entire HTML document back
     - Instead, the server would send back data about the change, either in an XML or JSON format, and the website could then process that data and update the DOM accordingly
-
-      <img src="https://assets.aaonline.io/Module-Web/ajax/ajax.svg" height="500"/>
 
 #### JavaScript is the engine behind AJAX
   - When the data comes back from the server, JavaScript can also then be used to make the necessary updates to the DOM.
@@ -101,7 +99,7 @@
     document.querySelector('button').addEventListener('click', handleClick)
   ```
 
-
+img src="https://assets.aaonline.io/Module-Web/ajax/ajax.svg" height="500"/>
 
   - In this file, you'll be setting up event listeners and implementing AJAX requests using the Fetch API.
 
