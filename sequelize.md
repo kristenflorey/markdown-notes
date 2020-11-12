@@ -1,61 +1,61 @@
 # Sequelize
 - Sequelize provides utilities for generating migrations, models, and seed files. They are exposed through the `sequelize-cli` command.
 
-### Command Line
-##### Initialize Project
+## Command Line
+#### Initialize Project
   ```
   npm install sequelize sequelize-cli pg
   npx sequelize-cli init
   ```
 - You must create a database user, update the `config/config.json` file to match your database settings to complete the initialization process.
 
-##### Create Database
+#### Create Database
   ```
   npx sequelize-cli db:create
   ```
-#### Seeds
-##### Generate a new seed file
+### Seeds
+#### Generate a new seed file
 ```
 npx sequelize-cli seed:generate --name <descriptiveName>
 ```
 
-##### Run all pending seeds
+#### Run all pending seeds
 ```
 npx sequelize-cli db:seed:all
 ```
-##### Rollback Seeds
-- ###### One seed
+#### Rollback Seeds
+- ##### One seed
   ```
   npx sequelize-cli db:seed:undo
   ```
-- ###### All seeds
+- ##### All seeds
   ```
   npx sequelize-cli db:seed:undo:all
   ```
 
-#### Migrations
-##### Generate a model and its migration
+### Migrations
+#### Generate a model and its migration
 ```
 npx sequelize-cli model:generate --name <ModelName> --attributes<column1>:<type>,<column2>:<type>,...
 ```
 
-##### Run all pending migrations
+#### Run all pending migrations
   ```
   npx sequelize-cli db:migrate
   ```
 
 
-##### Rollback Migrations
-- ###### One migration
+#### Rollback Migrations
+- ##### One migration
   ```
   npx sequelize-cli db:migrate:undo
   ```
-- ###### All migrations
+- ##### All migrations
   ```
   npx sequelize-cli db:migrate:undo:all
   ```
-#### Javascript SQL Functions
-##### Connecting to a Database
+## Javascript SQL Functions
+### Connecting to a Database
 ```js
 const { Sequelize } = require('sequelize');
 
@@ -74,7 +74,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   dialect: /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */
 });
 ```
-##### Testing the Connection
+#### Testing the Connection
 
 ```js
 try {
@@ -89,7 +89,7 @@ try {
   sequelize.close()
   ```
 
-##### Create a Table
+#### Create a Table
 - Usually used in the `up()` method
 ```js
 return queryInterface.createTable(<TableName>, {
@@ -105,7 +105,7 @@ return queryInterface.createTable(<TableName>, {
   }
 });    
 ```
-##### Delete Table
+#### Delete Table
 - Usually used in the `down()` method
 ```js
 return queryInterface.dropTable(<TableName>);
@@ -118,7 +118,7 @@ return queryInterface.dropTable(<TableName>);
     ```js
     await sequelize.drop();
     ```
-##### Adding a column
+#### Adding a column
 ```js
 return queryInteface.addColumn(<TableName>, <columnName>: {    
   type: Sequelize.<type>,    
@@ -129,12 +129,12 @@ return queryInteface.addColumn(<TableName>, <columnName>: {
     },
 });
 ```
-##### Removing a column
+#### Removing a column
 ```js
 return queryInterface.removeColumn(<TableName>, <columnName>);
 ```
 ---
-### Models
+## Models
 - A Model represents a table in the database. Instances of this class represent a database row.
   - Model instances operate with the concept of a dataValues property, which stores the actual values represented by the instance. By default, the values from dataValues can also be accessed directly from the Instance, that is:
     ```js
@@ -147,24 +147,24 @@ return queryInterface.removeColumn(<TableName>, <columnName>);
   - However, if getters and/or setters are defined for field they will be invoked, instead of returning the value from `dataValues`.
   - Accessing properties directly or using get is preferred for regular use, `getDataValue` should only be used for custom getters.
   - See [Public Methods](https://sequelize.org/master/class/lib/model.js~Model.html)
-#### Model Basics
+### Model Basics
 - Models are the essence of Sequelize.
 - A model is an abstraction that represents a table in your database.
   - In Sequelize, it is a class that extends Model.
 - The model tells Sequelize several things about the entity it represents, such as:
   - the name of the table in the database
   - which columns it has (and their data types)
-##### Naming Models
+#### Naming Models
 - A model in Sequelize has a name.
   - This name does not have to be the same name of the table it represents in the database.
   - Usually, models have singular names (such as `User`) while tables have pluralized names (such as `Users`), although this is fully configurable.
-##### Defining a Model
+#### Defining a Model
 - Models can be defined in two equivalent ways in Sequelize:
   - Calling `sequelize.define(modelName, attributes, options)`
   - Extending Model and calling `init(attributes, options)`
 - After a model is defined, it is available within sequelize.models by its model name.
 
-###### Using `sequelize.define`
+##### Using `sequelize.define`
 ```js
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
@@ -187,7 +187,7 @@ const User = sequelize.define('User', {
 console.log(User === sequelize.models.User); // true
 ```
 
-##### Synchronizing a Model  
+#### Synchronizing a Model  
 - In the case where the table doesn't even exist in the database or if it exists, but it has different columns, less columns, or any other difference, models can be synchronized by calling `model.sync(options)`, an asynchronous function (that returns a Promise)
 - With this call, Sequelize will automatically perform an SQL query to the database.
 
@@ -205,7 +205,7 @@ console.log(User === sequelize.models.User); // true
 
 #### Model Instances
 
-### Queries
+## Queries
 #### INSERT queries
 - The `Model.create()` method is a shorthand for building an unsaved instance with `Model.build()` and saving the instance with `instance.save()`.
 ```js
@@ -283,7 +283,7 @@ await User.destroy({
   ```js
   const remove = await bulkDelete(records: Array, options: object): Promise<Array<Model>>
   ```
-#### Ordering Results
+### Ordering Results
 - The `order` option takes an array of items to order the query by or a sequelize method.
   - These items are themselves arrays in the form `[column, direction]`.
   - The column will be escaped correctly and the direction will be checked in a whitelist of valid directions (such as `ASC`, `DESC`, `NULLS FIRST`, etc).
@@ -315,7 +315,7 @@ The elements of the order array can be the following:
   - Everything else is ignored, and if `raw` is not set, the query will fail
 - A call to `Sequelize.fn` (which will generate a function call in SQL)
 - A call to `Sequelize.col` (which will quote the column name)
-##### Limits and Offset
+#### Limits and Offset
 - The `limit` and `offset` options allow you to work with limiting / pagination:
 ```js
 // Fetch 10 instances/rows
@@ -369,8 +369,8 @@ Model.findAll({
 | Show all schemas                                        | `async showAllSchemas(options: object): Promise<Array>`                                                                                                        |
 | Upsert                                                  | `async upsert(tableName: string, insertValues: object, updateValues: object, where: object, options: object): Promise<boolean, ?number>`                       |
 
-#### Utility Methods
-##### Count
+### Utility Methods
+#### Count
 - The `count` method simply counts the occurrences of elements in the database.
 ```js
 console.log(`There are ${await Project.count()} projects`);
@@ -384,7 +384,7 @@ const amount = await Project.count({
 });
 console.log(`There are ${amount} projects with an id greater than 25`);
 ```
-##### max, min, and sum
+#### max, min, and sum
 ```js
 await User.max('age'); // 40
 await User.max('age', { where: { age: { [Op.lt]: 20 } } }); // 10
