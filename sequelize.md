@@ -204,3 +204,37 @@ console.log(User === sequelize.models.User); // true
 - Of course, using async and await works normally as well.
 
 #### Model Instances
+
+### Queries
+##### Public Methods
+
+| Action                                                  | Method                                                                                                                                                         |
+|---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Add a new column to a table                             | `async addColumn(table: string, key: string, attribute: object, options: object): Promise`                                                                     |
+| Add a constraint to a table                             | `async addConstraint(tableName: string, options: object): Promise`                                                                                             |
+| Add an index to a column                                | `async addIndex(tableName: string \| object, attributes: Array, options: object, rawTablename: string): Promise`                                               |
+| Delete multiple records from a table                    | `async bulkDelete(tableName: string, where: object, options: object, model: Model): Promise`                                                                   |
+| Insert multiple records into a table                    | `async bulkInsert(tableName: string, records: Array, options: object, attributes: object): Promise`                                                            |
+| Update multiple records of a table                      | `async bulkUpdate(tableName: string, values: object, identifier: object, options: object, attributes: object): Promise`                                        |
+| Change a column definition                              | `async changeColumn(tableName: string, attributeName: string, dataTypeOrOptions: object, options: object): *`                                                  |
+| Create a database                                       | `async createDatabase(database: string, options: object): Promise`                                                                                             |
+| Create an SQL function                                  | `async createFunction(functionName: string, params: Array, returnType: string, language: string, body: string, optionsArray: Array, options: object): Promise` |
+| Create a schema                                         | `async createSchema(schema: string, options: object): Promise`                                                                                                 |
+| Create a table with given set of attributes             | `async createTable(tableName: string, attributes: object, options: object, model: Model): Promise`                                                             |
+| Describe a table structure                              | `async describeTable(tableName: string, options: object): Promise<object>`                                                                                     |
+| Drop all schemas                                        | `async dropAllSchemas(options: object): Promise`                                                                                                               |
+| Drop all tables from database                           | `async dropAllTables(options: object): Promise`                                                                                                                |
+| Drop a database                                         | `async dropDatabase(database: string, options: object): Promise`                                                                                               |
+| Drop an SQL function                                    | `async dropFunction(functionName: string, params: Array, options: object): Promise`                                                                            |
+| Drop a schema                                           | `async dropSchema(schema: string, options: object): Promise`                                                                                                   |
+| Drop a table from database                              | `async dropTable(tableName: string, options: object): Promise`                                                                                                 |
+| Get foreign key references details for the table        | `async getForeignKeyReferencesForTable(tableName: string, options: object): *`                                                                                 |
+| Returns all foreign key constraints of requested tables | `async getForeignKeysForTables(tableNames: string[], options: object): Promise`                                                                                |
+| Remove a column from a table                            | `async removeColumn(tableName: string, attributeName: string, options: object): *`                                                                             |
+| Remove a constraint from a table                        | `async removeConstraint(tableName: string, constraintName: string, options: object): *`                                                                        |
+| Remove an already existing index from a table           | `async removeIndex(tableName: string, indexNameOrAttributes: string \| string[], options: object): Promise`                                                    |
+| Rename a column                                         | `async renameColumn(tableName: string, attrNameBefore: string, attrNameAfter: string, options: object): Promise`                                               |
+| Rename an SQL function                                  | `async renameFunction(oldFunctionName: string, params: Array, newFunctionName: string, options: object): Promise`                                              |
+| Rename a table                                          | `async renameTable(before: string, after: string, options: object): Promise`                                                                                   |
+| Show all schemas                                        | `async showAllSchemas(options: object): Promise<Array>`                                                                                                        |
+| Upsert                                                  | `async upsert(tableName: string, insertValues: object, updateValues: object, where: object, options: object): Promise<boolean, ?number>`                       |
