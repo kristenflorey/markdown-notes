@@ -58,7 +58,7 @@
 2. Header
 3. Body
 
-```js
+```
 GET / HTTP/1.1
 Host: appacademy.io
 Connection: keep-alive
@@ -106,7 +106,7 @@ usually HTTP/1.1 or HTTP/2
 
 ### HTTP Responses <a id="httpresponses"></a>
 #### Structure of HTTP Response:
-```js
+```
 HTTP/1.1 200 OK
 Content-Type: text/html; charset=utf-8
 Transfer-Encoding: chunked
