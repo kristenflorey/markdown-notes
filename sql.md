@@ -373,14 +373,4 @@ ORDER BY «column» [ DESC | ASC ]
 | <=       | Less or equal    | a <= b |
 | !<       | Not less than    | a !< b |
 | !>       | Not greater than | a !> b |
-# H1
-## H222
-### H333
-#### H4444
-##### H5555
-###### H666666
----
 
----
----
----
