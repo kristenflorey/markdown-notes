@@ -1,5 +1,5 @@
 # a/A Markdown Notes
-#### To view these notes in the intending format:
+#### To view these notes in the intended format:
 - ##### Download Markdown-Preview-Enhanced extension in your code editor
 - ##### Launch Markdown-Preview-Enhanced: Customize CSS from command palette (Command + Shift + P)
 - ##### Copy and paste into your styles.less:
