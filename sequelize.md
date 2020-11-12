@@ -206,6 +206,136 @@ console.log(User === sequelize.models.User); // true
 #### Model Instances
 
 ### Queries
+#### INSERT queries
+- The `Model.create()` method is a shorthand for building an unsaved instance with `Model.build()` and saving the instance with `instance.save()`.
+```js
+// Create a new user
+const jane = await User.create({ firstName: "Jane", lastName: "Doe" });
+console.log("Jane's auto-generated ID:", jane.id);
+```
+- ##### Creating in bulk
+  - Sequelize provides the `Model.bulkCreate` method to allow creating multiple records at once, with only one query.
+  - The usage of `Model.bulkCreate` is very similar to `Model.create`, by receiving an array of objects instead of a single object.
+  ```js
+  const create = await bulkCreate(records: Array, options: object): Promise<Array<Model>>
+  ```
+  - by default, `bulkCreate` does not run validations on each object that is going to be created (which create does).
+    - To make `bulkCreate` run these validations as well, you must pass the `validate: true` option. This will decrease performance.
+
+#### SELECT queries
+- You can read the whole table from the database with the findAll method:
+```js
+// Find all users
+const users = await User.findAll();
+console.log(users.every(user => user instanceof User)); // true
+console.log("All users:", JSON.stringify(users, null, 2));
+```
+```
+SELECT * FROM ...
+```
+- ###### Specifying attributes for SELECT queries:
+  ```js
+  Model.findAll({
+    attributes: ['foo', 'bar']
+  });
+  ```
+  ```
+  SELECT foo, bar FROM ...
+  ```
+- ###### Attributes can be renamed using a nested array:
+  ```js
+  Model.findAll({
+    attributes: ['foo', ['bar', 'baz'], 'qux']
+  });
+  ```
+  ```
+  SELECT foo, bar AS baz, qux FROM ...
+  ```
+- ###### Applying WHERE clause
+  - The where option is used to filter the query. There are lots of operators to use for the where clause, available as Symbols from [Operator Symbols](https://sequelize.org/master/variable/index.html#static-variable-Op).
+  ```js
+  Post.findAll({
+    where: {
+      authorId: 2
+    }
+  });
+  // SELECT * FROM post WHERE authorId = 2
+  ```
+#### UPDATE queries
+```js
+// Change everyone without a last name to "Doe"
+await User.update({ lastName: "Doe" }, {
+  where: {
+    lastName: null
+  }
+});
+```
+#### DELETE queries
+```js
+// Delete everyone named "Jane"
+await User.destroy({
+  where: {
+    firstName: "Jane"
+  }
+});
+```
+- ##### Delete in bulk
+  ```js
+  const remove = await bulkDelete(records: Array, options: object): Promise<Array<Model>>
+  ```
+#### Ordering Results
+- The `order` option takes an array of items to order the query by or a sequelize method.
+  - These items are themselves arrays in the form `[column, direction]`.
+  - The column will be escaped correctly and the direction will be checked in a whitelist of valid directions (such as `ASC`, `DESC`, `NULLS FIRST`, etc).
+```js
+Model.findAll({
+  order: [
+    // Will escape name and validate DESC | ASC against a list of valid direction parameters
+    ['name', 'DESC' | 'ASC']
+  ]
+})
+```
+```js
+Model.findOne({
+  order: [
+    // will return `name` DESC or ASC
+    ['name', `DESC` | `ASC`],
+    // will return max('age')
+    sequelize.fn('max', sequelize.col('age')),
+    // will return max('age') DESC
+    [sequelize.fn('max', sequelize.col('age')), 'DESC'],
+  ]
+});
+```
+The elements of the order array can be the following:
+- A string (which will be automatically quoted)
+- An array, whose first element will be quoted, second will be appended verbatim
+- An object with a `raw` field:
+  - The content of `raw` will be added verbatim without quoting
+  - Everything else is ignored, and if `raw` is not set, the query will fail
+- A call to `Sequelize.fn` (which will generate a function call in SQL)
+- A call to `Sequelize.col` (which will quote the column name)
+##### Limits and Offset
+- The `limit` and `offset` options allow you to work with limiting / pagination:
+```js
+// Fetch 10 instances/rows
+Project.findAll({ limit: 10 });
+
+// Skip 8 instances/rows
+Project.findAll({ offset: 8 });
+
+// Skip 5 instances and fetch the 5 after that
+Project.findAll({ offset: 5, limit: 5 });
+```
+#### Grouping Results
+- The syntax for grouping and ordering are equal, except that grouping does not accept a direction as last argument of the array (there is no `ASC`, `DESC`, `NULLS FIRST`, etc).
+```js
+Model.findAll({
+  group: 'name'
+});
+// yields 'GROUP BY name'
+```
+
 ##### Public Methods
 
 | Action                                                  | Method                                                                                                                                                         |
@@ -238,3 +368,30 @@ console.log(User === sequelize.models.User); // true
 | Rename a table                                          | `async renameTable(before: string, after: string, options: object): Promise`                                                                                   |
 | Show all schemas                                        | `async showAllSchemas(options: object): Promise<Array>`                                                                                                        |
 | Upsert                                                  | `async upsert(tableName: string, insertValues: object, updateValues: object, where: object, options: object): Promise<boolean, ?number>`                       |
+
+#### Utility Methods
+##### Count
+- The `count` method simply counts the occurrences of elements in the database.
+```js
+console.log(`There are ${await Project.count()} projects`);
+
+const amount = await Project.count({
+  where: {
+    id: {
+      [Op.gt]: 25
+    }
+  }
+});
+console.log(`There are ${amount} projects with an id greater than 25`);
+```
+##### max, min, and sum
+```js
+await User.max('age'); // 40
+await User.max('age', { where: { age: { [Op.lt]: 20 } } }); // 10
+await User.min('age'); // 5
+await User.min('age', { where: { age: { [Op.gt]: 5 } } }); // 10
+await User.sum('age'); // 55
+await User.sum('age', { where: { age: { [Op.gt]: 5 } } }); // 50
+```
+
+##### [Validations and Constraints](https://sequelize.org/master/manual/validations-and-constraints.html)
