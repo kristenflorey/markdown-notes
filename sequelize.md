@@ -55,7 +55,7 @@ npx sequelize-cli model:generate --name <ModelName> --attributes<column1>:<type>
   npx sequelize-cli db:migrate:undo:all
   ```
 ## Javascript SQL Functions
-### Connecting to a Database
+#### Connecting to a Database
 ```js
 const { Sequelize } = require('sequelize');
 
@@ -395,3 +395,5 @@ await User.sum('age', { where: { age: { [Op.gt]: 5 } } }); // 50
 ```
 
 ##### [Validations and Constraints](https://sequelize.org/master/manual/validations-and-constraints.html)
+---
+END
