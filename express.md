@@ -48,7 +48,31 @@ const app = express();
   - `delete()` - to handle DELETE requests
 - `GET` and `POST` are two of the most commonly used HTTP methods, followed by `PUT` and `DELETE`.
 
-##### Application
+
+
+
+- To define a route to handle requests, call the app.get() method passing:
+  - the route path
+  - a route handler function
+  ```js
+  app.get('root/path/', (req, res) => {
+    // To send a plain text response to the client, call the res.send() method passing in the desired content
+    res.send('Hello from Express!');
+  });
+  ```
+
+#### Listening for HTTP Connections
+- To start the server listening for HTTP connections from clients, call the `app.listen()` method passing:
+  - The desired port to use
+  - An *optional* callback function
+  ```js
+  const port = 8081;
+
+  app.listen(port, () => console.log(`Listening on port ${port}...`));
+  ```
+---
+### Express Methods
+#### Application
 | Methods          | Properties      |
 |-----------------|-----------------|
 | `app.delete()`  | `app.locals`    |
@@ -67,17 +91,6 @@ const app = express();
 | `app.set()`     |                 |
 | `app.use()`     |                 |
 
-
-
-- To define a route to handle requests, call the app.get() method passing:
-  - the route path
-  - a route handler function
-  ```js
-  app.get('root/path/', (req, res) => {
-    // To send a plain text response to the client, call the res.send() method passing in the desired content
-    res.send('Hello from Express!');
-  });
-  ```
 #### Requests
 | Properties          | Methods                  |
 |---------------------|--------------------------|
@@ -127,18 +140,6 @@ const app = express();
 | `res.status()`      |                   |
 | `res.type()`        |                   |
 | `res.vary()`        |                   |
-
-#### Listening for HTTP Connections
-- To start the server listening for HTTP connections from clients, call the `app.listen()` method passing:
-  - The desired port to use
-  - An *optional* callback function
-  ```js
-  const port = 8081;
-
-  app.listen(port, () => console.log(`Listening on port ${port}...`));
-  ```
----
-### Express Methods
 -
 ---
 -
