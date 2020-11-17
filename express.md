@@ -118,17 +118,3 @@ const app = express();
 | `req.stale`         |                   |                 |
 | `req.subdomains`    |                   |                 |
 | `req.xhr`           |                   |                 |
--
----
--
----
--
----
--
----
--
----
--
----
--
----
