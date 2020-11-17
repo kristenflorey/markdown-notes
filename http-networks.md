@@ -1,30 +1,3 @@
-
-# h1
-## h22
-### h333
-#### h4444
-##### h55555
-###### h66666
-
-
-
-
-
-
-
-
-
-
-
----
-
-
-
----
-
-
-
-
 # HTTP & Networks
 ### Jump to...
 #### [HTTP](#http)
@@ -32,6 +5,7 @@
   - [HTTP Requests](#httprequests)
   - [HTTP Responses](#httpresponses)
     - [Status Codes](#statuscodes)
+  - [Node HTTP](#node)
 
 #### [Networks](#networks)
   - [Network Models](#networkmodels)
@@ -207,7 +181,79 @@ http.createServer((request, response) => {
 }).listen(3000, () => console.log("Listening on port 3000"));
 
 ```
+---
+### Node HTTP
+1. Identify the five parts of a URL
+Given this URL `https://example.com:8042/over/there?name=ferret#nose`
 
+2. Identify at least three protocols handled by the browser
+- https - Secure HTTP
+- http - HTTP
+- file - Opening a file
+- ws - Websocket
+3. Use an `IncomingMessage` object to
+An `IncomingMessage` object is usually represented by the `req` variable.
+access the headers sent by a client (like a Web browser) as part of the HTTP request
+```
+console.log(req.headers);
+// Prints something like:
+
+// { 'user-agent': 'curl/7.22.0',
+//   host: '127.0.0.1:8000',
+//   accept: '*/*' }
+```
+access the HTTP method of the request
+```
+console.log(req.method); // prints out the method like `GET` or `POST`
+```
+access the path of the request
+```
+console.log(req.url); // access the path of the request as a string
+```
+**access and read the stream of content for requests that have a body**
+
+`IncomingMessage` is a sub class of stream.Readable in node, so we can read it like a stream.
+
+Since `stream.Readable` is an `async iterable` we can use `for await..of` with it, and we'll get each chuck of data from the stream and we can concatenate them back together.
+
+You don't need to know all the details of how async iterators work to use them like this:
+```
+let body = '';
+forawait (let chunk of req) {
+  body += chunk;
+}
+```
+
+4. Use a ServerResponse object to
+
+**write the status code, message, and headers for an HTTP response**
+
+#### Status code
+```
+res.statusCode = 404;
+```
+#### message
+```
+res.statusMessage = 'Page not found';
+```
+#### headers
+```
+res.setHeader('Content-Type', 'text/html');
+```
+**write the content of the body of the response**
+
+Assuming body is a big string of HTML...
+```
+res.write(body);
+```
+**properly end the response to indicate to the client (like a Web browser) that all content has been written**
+You can optionally pass some more data to write in the call to end.
+```
+// Without a string
+res.end()
+// With a string (assuming rest_of_body is some more HTML)
+res.end(rest_of_body)
+```
 
 
 
