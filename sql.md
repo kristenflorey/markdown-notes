@@ -1,3 +1,4 @@
+
 # SQL
 #### Structured Query Language
   - SQL is a *declarative* programming language that works on *sets* of records.
@@ -373,4 +374,3 @@ ORDER BY «column» [ DESC | ASC ]
 | <=       | Less or equal    | a <= b |
 | !<       | Not less than    | a !< b |
 | !>       | Not greater than | a !> b |
-
