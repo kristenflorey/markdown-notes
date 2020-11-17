@@ -72,76 +72,52 @@ const app = express();
   ```
 ---
 ### Express Methods
-#### Application
-| Methods          | Properties      |
-|-----------------|-----------------|
-| `app.delete()`  | `app.locals`    |
-| `app.disable()` | `app.mountpath` |
-| `app.enable()`  |                 |
-| `app.engine()`  |                 |
-| `app.get()`     |                 |
-| `app.listen()`  |                 |
-| `app.METHOD()`  |                 |
-| `app.param()`   |                 |
-| `app.path()`    |                 |
-| `app.post()`    |                 |
-| `app.put()`     |                 |
-| `app.render()`  |                 |
-| `app.route()`   |                 |
-| `app.set()`     |                 |
-| `app.use()`     |                 |
+| Request                  | Application    | Response            | Router            | Middleware         |
+|--------------------------|----------------|---------------------|-------------------|--------------------|
+| `req.accepts()`          | `app.delete()`     | `res.`append()` ()`     | `router.all()`    | `bodyParser()`     |
+| `req.acceptsCharsets()`  | `app.disable()`    | `res.attachment()`  | `router.METHOD()` | `compress()`       |
+| `req.acceptsEncodings()` | `app.enable()`     | `res.cookie()`      | `router.param()`  | `cookieParser()`   |
+| `req.acceptsLanguages()` | `app.engine()`     | `res.clearCookie()` | `router.route()`  | `cookieSession()`  |
+| `req.get()`              | `app.get()`        | `res.download()`    | `router.use()`    | `csrf()`           |
+| `req.is()`               | `app.listen()`     | `res.end()`         |                   | `errorHandler()`   |
+| `req.param()`            | `app.method()`     | `res.format()`      |                   | `methodOverride()` |
+| `req.range()`            | `app.param()`  | `res.get()`         |                   | `morgan()`         |
+|                          | `app.path()`   | `res.json()`        |                   | `responseTime()`   |
+|                          | `app.post()`   | `res.links()`       |                   | `favicon()`        |
+|                          | `app.put()`    | `res.location()`    |                   | `directory()`      |
+|                          | `app.render()` | `res.redirect()`    |                   | `serveStatic()`    |
+|                          | `app.route()`  | `res.render()`      |                   | `timeout()`        |
+|                          | `app.set()`    | `res.send()`        |                   | `vhost()`          |
+|                          | `app.use()`    | `res.sendFile()`    |                   | `session()`        |
+|                          |                | `res.sendStatus()`  |                   |                    |
+|                          |                | `res.set()`         |                   |                    |
+|                          |                | `res.status()`      |                   |                    |
+|                          |                | `res.type()`        |                   |                    |
+|                          |                | `res.vary()`        |                   |                    |
 
-#### Requests
-| Properties          | Methods                  |
-|---------------------|--------------------------|
-| `req.app`           | `req.accepts()`          |
-| `req.baseURL`       | `req.acceptsCharsets()`  |
-| `req.body`          | `req.acceptsEncodings()` |
-| `req.cookies`       | `req.acceptsLanguages()` |
-| `req.fresh`         | `req.get()`              |
-| `req.hostname`      | `req.is()`               |
-| `req.ip`            | `req.param()`            |
-| `req.ips`           | `req.range()`            |
-| `rep.method`        |                          |
-| `req.originalUrl`   |                          |
-| `req.params`        |                          |
-| `req.path`          |                          |
-| `req.protocol`      |                          |
-| `req.query`         |                          |
-| `req.route`         |                          |
-| `req.secure`        |                          |
-| `req.signedCookies` |                          |
-| `req.stale`         |                          |
-| `req.subdomains`    |                          |
-| `req.xhr`           |                          |
-
-#### Responses
-
-| Methods         | Properties        |
-|-----------------|-------------------|
-| `res.append()`      | `res.app`         |
-| `res.attachment()`  | `res.headersSent` |
-| `res.cookie()`      | `res.locals`      |
-| `res.clearCookie()` |                   |
-| `res.download()`    |                   |
-| `res.end()`         |                   |
-| `res.format()`      |                   |
-| `res.get()`         |                   |
-| `res.json()`        |                   |
-| `res.jsonp()`       |                   |
-| `res.links()`       |                   |
-| `res.location()`    |                   |
-| `res.redirect()`    |                   |
-| `res.render()`      |                   |
-| `res.send()`        |                   |
-| `res.sendFile()`    |                   |
-| `res.sendStatus()`  |                   |
-| `res.set()`         |                   |
-| `res.status()`      |                   |
-| `res.type()`        |                   |
-| `res.vary()`        |                   |
--
----
+### Express Properties
+| Request             | Response          | Application     |
+|---------------------|-------------------|-----------------|
+| `req.app`           | `res.app`         | `app.locals`    |
+| `req.baseUrl`       | `res.headersSent` | `app.mountpath` |
+| `req.body`          | `res.locals`      |                 |
+| `req.cookies`       |                   |                 |
+| `req.fresh`         |                   |                 |
+| `req.hostname`      |                   |                 |
+| `req.ip`            |                   |                 |
+| `req.ips`           |                   |                 |
+| `req.method`        |                   |                 |
+| `req.originalUrl`   |                   |                 |
+| `req.params`        |                   |                 |
+| `req.path`          |                   |                 |
+| `req.protocol`      |                   |                 |
+| `req.query`         |                   |                 |
+| `req.route`         |                   |                 |
+| `req.secure`        |                   |                 |
+| `req.signedCookies` |                   |                 |
+| `req.stale`         |                   |                 |
+| `req.subdomains`    |                   |                 |
+| `req.xhr`           |                   |                 |
 -
 ---
 -
