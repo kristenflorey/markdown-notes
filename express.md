@@ -37,8 +37,7 @@ const app = express();
 ```
 - The `app` variable holds a reference to an Express Application (`app`) object. You'll call methods on the `app` object as you build out your web application.
 
-### Requests
-#### Configure The Routing For Your Application
+### Routing
 - **Routing** refers to determining how an application should respond to a client request
   - Each route can have one or more handler functions, which are executed when the route is matched.
 - Route definition takes the following structure:
@@ -82,6 +81,70 @@ const app = express();
 #### Route Paths
 - Route paths, in combination with a request method, define the endpoints at which requests can be made.
   - Route paths can be strings, string patterns, or regular expressions.
+  - Route paths can be based on regular expressions by surrounding search string with `/`s
+[List of root paths](https://expressjs.com/en/guide/routing.html)
+
+#### Route Parameters
+- Route parameters are named URL segments that are used to capture the values specified at their position in the URL.
+  - The captured values are populated in the `req.params` object, with the name of the route parameter specified in the path as their respective keys.
+    ```
+    Route path: /users/:userId/books/:bookId
+    Request URL: http://localhost:3000/users/34/books/8989
+    req.params: { "userId": "34", "bookId": "8989" }
+    ```
+  - To define routes with route parameters, simply specify the route parameters in the path of the route as shown below.
+    ```js
+    app.get('/users/:userId/books/:bookId', function (req, res) {
+      res.send(req.params)
+    })
+    ```
+
+#### Route Handlers
+- You can provide multiple callback functions that behave like [middleware](#middleware) to handle a request.
+- Route handlers can be in the form of a function, an array of functions, or combinations of both.
+  - You can create chainable route handlers for a route path by using **`app.route()`**
+  ```js
+  app.route('/book')
+  .get(function (req, res) {
+    res.send('Get a random book')
+  })
+  .post(function (req, res) {
+    res.send('Add a book')
+  })
+  .put(function (req, res) {
+    res.send('Update the book')
+  })
+  ```
+  - Use the `express.Router` class to create modular, mountable route handlers.
+    - A `Router` instance is a complete middleware and routing system; for this reason, it is often referred to as a “mini-app”.
+
+### Middleware <a id="middleware"></a>
+- Middleware functions are functions that have access to the request object (`req`), the response object (`res`), and the `next` function in the application’s request-response cycle.
+  - The `next` function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware.
+- Middleware functions can perform the following tasks:
+  - Execute any code.
+  - Make changes to the request and the response objects.
+  - End the request-response cycle.
+  - Call the next middleware in the stack.
+- If the current middleware function does not end the request-response cycle, it must call `next()` to pass control to the next middleware function. Otherwise, the request will be left hanging.
+```js
+const express = require('express');
+const app = express();
+
+app.get('/', function(req, res, next) {
+  next();
+});
+
+app.listen(3000)
+```
+- `.get()`: HTTP method for which the middleware function applies
+- `'/'`: Path (route) for which the middleware function applies
+- `function`: The middleware function
+- `req`: HTTP request argument to the middleware function
+- `res`: HTTP response argument to the middleware function
+- **`next`**: Callback argument to the middleware function
+
+
 
 #### Listening for HTTP Connections
 - To start the server listening for HTTP connections from clients, call the `app.listen()` method passing:
