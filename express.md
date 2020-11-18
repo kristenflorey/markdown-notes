@@ -225,7 +225,7 @@ An Express Application can use the following types of middleware:
 - This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
 
 
-| Request                  | Application    | Response            | Router            | Middleware         |
+| [Request](https://expressjs.com/en/4x/api.html#req)                  | [Application](https://expressjs.com/en/4x/api.html#app)    | [Response](https://expressjs.com/en/4x/api.html#res)            | [Router](https://expressjs.com/en/4x/api.html#router)            | Middleware         |
 |--------------------------|----------------|---------------------|-------------------|--------------------|
 | `req.accepts()`          | `app.delete()`     | `res.`append()` ()`     | `router.all()`    | `bodyParser()`     |
 | `req.acceptsCharsets()`  | `app.disable()`    | `res.attachment()`  | `router.METHOD()` | `compress()`       |
