@@ -1,5 +1,12 @@
 <img src="https://hackernoon.com/hn-images/1*PmL3-GUNxYP26qTSlVrmzw.png" width="400"/>
 
+#### Jump to...
+- [Syntax](#syntax)
+- [Rendering](#render)
+- [Method options](#options)
+- [Inheritance](#inheritance)
+- [Interpolation](#interpolation)
+- [Iteration](#iteration)
 # Pug
 - Pug (formerly known as Jade) is a preprocessor which simplifies the task of writing HTML. It also adds a ton of functionality, such as Javascript objects, conditionals, loops, mixins and templates.
 - Pug fully integrates with Express, a popular Node.js web framework, as a supported view engine.
@@ -8,7 +15,7 @@
 - Pug is available via npm:
 `npm install - g pug-cli`
 
-#### Pug Syntax
+#### Pug Syntax <a class="syntax"></a>
 - **whitespace sensitive**: Pug uses indentation to work out with tags are nested inside each other.
   ```pug
   div.remark
@@ -51,7 +58,7 @@
     //Visible comment.
     ```
 
-#### Rendering Proccess of Pug
+#### Rendering Proccess of Pug <a class="render"></a>
 
 #### `pug.compile(source, options)`
 - will compile the Pug source code into a JavaScript function that takes a data object (called “locals”) as an argument.
@@ -92,7 +99,7 @@
     // => '<string>of pug</string>'
     ```
 
-#### Options
+#### Options <a class="options"></a>
 - All API methods accept the following set of options:
 
 | Option                   | Accepts         | Action                                                                                                                                                                                                                                                       |
@@ -110,7 +117,7 @@
 | `name`                   | `string`        | The name of the template function. Only applies to `compileClient` functions. Defaults to `'template'`.                                                                                                                                                      |
 
 
-#### Template Inheritance
+#### Template Inheritance <a class="inheritance"></a>
 - Pug supports template inheritance. Template inheritance works via the `block` and `extends` keywords.
    #### `block`
    - in a template, a `block` is simply a "block" of Pug that a child template may replace.
@@ -162,12 +169,13 @@
 #### Buffered vs Unbuffered Code
 - **Unbuffered code** starts with a minus (`-`). It doesn’t directly add anything to the output, but its values may be used from within Pug.
 - **Buffered code**, on the other hand, starts with an equals (`=`). It evaluates a JavaScript expression and outputs the result.  
-#### Interpolation
+
+#### Interpolation <a class="interpolation"></a>
 - String interpolation is the process of replacing one or more placeholders in a template with a corresponding value.
   - buffered input offers one method of doing this.
 - Another is using `#{}`. Here, Pug will evaluate any code between the curly brackets, escape it, and render it into the template
 
-#### Iteration
+#### Iteration <a class="iteration"></a>
 - Pug supports two primary methods of iteration: `each` and `while`.
    #### `each`
   Iterate over arrays and objects in a template:
