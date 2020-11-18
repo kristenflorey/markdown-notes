@@ -9,6 +9,7 @@
   - [Middleware](#middleware)
   - [Express Properties](#properties)
   - [Express Methods](#methods)
+  - [Forms](#forms)
 #### Installing Express
 - Open terminal window in your project folder and initialize npm
 `npm init -y`
@@ -272,4 +273,52 @@ An Express Application can use the following types of middleware:
 | `req.subdomains`    |                   |                 |
 | `req.xhr`           |                   |                 |
 
-###
+### Forms <a id="forms"></a>
+- The form is defined in HTML as a collection of elements inside `<form>...</form>` tags, containing at least one `input` element of `type="submit"`.
+```HTML
+<form action="/team_name_url/" method="post">
+    <label for="team_name">Enter name: </label>
+    <input id="team_name" type="text" name="name_field" value="Default name for team.">
+    <input type="submit" value="OK">
+</form>
+```
+
+#### Form Handling
+- The route sends our request to a controller function which performs any database actions required, including reading data from the models, then generates and returns an HTML page.
+  - the server also needs to be able to process the data provided by the user, and redisplay the form with error information if there are any problems.
+##### Process flowchart for processing form requests
+<img src="https://mdn.mozillademos.org/files/14478/Web%20server%20form%20handling.png" width="600"/>
+
+1. Display the default form the first time it is requested by the user.
+  - The form may contain blank fields (e.g. if you're creating a new record), or it may be pre-populated with initial values (e.g. if you are changing a record, or have useful default initial values).
+2. Receive data submitted by the user, usually in an HTTP POST request.
+3. Validate and sanitize the data.
+4. If any data is invalid, re-display the form—this time with any user populated values and error messages for the problem fields.
+5. If all data is valid, perform required actions (e.g. save the data in the database, send a notification email, return the result of a search, upload a file, etc.)
+6. Once all actions are complete, redirect the user to another page.
+
+- **Express itself doesn't provide any specific support for form handling operations, but it can use middleware to process `POST` and `GET` parameters from the form, and to validate/sanitize their values.**
+
+#### Validation and Sanitazion
+- **Validation** checks that entered values are appropriate for each field (are in the right range, format, etc.) and that values have been supplied for all required fields.
+- **Sanitization** removes/replaces characters in the data that might potentially be used to send malicious content to the server.
+  - Installation:
+  `npm install express-validator`
+  - To use the validator in our controllers we have to require the functions we want to use from the 'express-validator/check' and 'express-validator/filter' modules, as shown below:
+    ```js
+    const { body,validationResult } = require('express-validator');
+    ```
+    - **`body([fields, message])`**: Specifies a set of fields in the request body (a `POST` parameter) to validate and/or sanitize along with an optional error message that can be displayed if it fails the tests
+    - **`validationResults(req)`**: Runs the validation, making errors available in the form of a `validation` result object.
+#### Routes
+- In order to implement our form handling code, we will need two routes that have the same URL pattern.
+  - The first (`GET`) route is used to display a new empty form for creating the object.
+    ```js
+    // GET request for creating a Genre. NOTE This must come before route that displays Genre (uses id).
+    router.get('/genre/create', genre_controller.genre_create_get);
+    ```
+  - The second route (`POST`) is used for validating data entered by the user, and then saving the information and redirecting to the detail page (if the data is valid) or redisplaying the form with errors (if the data is invalid).
+    ```js
+    // POST request for creating Genre.
+    router.post('/genre/create', genre_controller.genre_create_post);
+    ```
