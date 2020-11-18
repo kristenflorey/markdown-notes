@@ -6,7 +6,7 @@
 
 #### Installation
 - Pug is available via npm:
-`npm install pug`
+`npm install - g pug-cli`
 
 #### Pug Syntax
 - **whitespace sensitive**: Pug uses indentation to work out with tags are nested inside each other.
@@ -46,6 +46,10 @@
     ```  
 #### Comments
   - Comments in Pug can be escaped similar to Javascript with `//`
+    ```
+    //- Invisible comment.
+    //Visible comment.
+    ```
 
 #### Rendering Proccess of Pug
 
