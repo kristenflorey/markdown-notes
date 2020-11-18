@@ -175,6 +175,22 @@
   - buffered input offers one method of doing this.
 - Another is using `#{}`. Here, Pug will evaluate any code between the curly brackets, escape it, and render it into the template
 
+  | Syntax                        | Action                                                                                                                                            |
+  |-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+  | `res.render(path, variables)` | Searches for a pug file to render at path "path", and passes "variables" to it                                                                    |
+  | `#{variable}`                 | Interpolates "variable" inline with the surrounding Jade code, after evaluating "variable"                                                        |
+  | `!{variable}`                 | Interpolates "variable" inline with the surrounding Jade code, without evaluating "variable".                                                     |
+  | `#[element]`                  | Interpolates "element" inside of an existing Pug HTML element. Syntax of interpolated HTML elements is identical to that of normal HTML elements. |
+
+
+  | Parameter | Details                                                                                                                                                           |
+  |-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | path      | Used in `res.render`. This is the path of the Pug file that we are going to render. The path is taken from the root of the folder set on your Express app:` app.set("views", "templates/views")`. For example, `res.render("index")` will search for a Pug file at `templates/views/index.pug`. Subdirectories can be specified too; `res.render("admin/index")` looks for a Pug file at `templates/views/admin/index.pug`. |
+  | variables | Used in `res.render`. A JavaScript object of variables to be made accessible to the Pug file defined by `path` (above). Within the Pug file, the keys of the above JavaScript object become available as variables. If `variables = {title: "Hello", color: "red"}`, we could use the `title` and `color` variable. Subproperties of nested objects are also available.                                                   |
+  | variable  | Used in bracket syntax `#{}` or `!{}`. The value of `variable` will be output in the context of its surrounding Pug code. If a pound symbol is prepended to the opening curly bracket, `variable` will be evaluated before being output. If an exclamation point is prepended to the opening curly brace, `variable` **will not** be evaluated.                                                                               |
+  | element   | Used in square bracket syntax `#[]`. The HTML element (in Pug syntax, not normal HTML syntax) will be evaluated and output inline with the surrounding Pug code.                                                                                                                                                                                                                                                   |
+
+
 #### Iteration <a class="iteration"></a>
 - Pug supports two primary methods of iteration: `each` and `while`.
    #### `each`
