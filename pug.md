@@ -1,4 +1,4 @@
-<img src="https://hackernoon.com/hn-images/1*PmL3-GUNxYP26qTSlVrmzw.png"/>
+<img src="https://hackernoon.com/hn-images/1*PmL3-GUNxYP26qTSlVrmzw.png" width="400"/>
 
 - Pug fully integrates with Express, a popular Node.js web framework, as a supported view engine.
 
