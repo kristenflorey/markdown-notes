@@ -37,45 +37,51 @@ const app = express();
 ```
 - The `app` variable holds a reference to an Express Application (`app`) object. You'll call methods on the `app` object as you build out your web application.
 
-#### Requests
-##### Configure The Routing For Your Application
+### Requests
+#### Configure The Routing For Your Application
 - **Routing** refers to determining how an application should respond to a client request
   - Each route can have one or more handler functions, which are executed when the route is matched.
 - Route definition takes the following structure:
 ` app.METHOD(PATH, HANDLER)`
   - `app` is an instance of express.
   - `METHOD` is an HTTP request method, in lowercase.
-      - `get()` - to handle GET requests
-        ```js
-        app.get('root/path/', (req, res) => {
-          // To send a plain text response to the client, call the res.send() method passing in the desired content
-          res.send('Hello from Express!');
-        });
-        ```
-      - `post()` - to handle POST requests
-        ```js
-        app.post('/', function (req, res) {
-          res.send('Got a POST request')
-        })
-        ```
-      - `put()` - to handle PUT requests
-        ```js
-        app.put('/user', function (req, res) {
-          res.send('Got a PUT request at /user')
-        })
-        ```
-      - `delete()` - to handle DELETE requests
-        ```js
-        app.delete('/user', function (req, res) {
-          res.send('Got a DELETE request at /user')
-        })
-        ```
-    - `GET` and `POST` are two of the most commonly used HTTP methods, followed by `PUT` and `DELETE`.
   - `PATH` is a path on the server.
   - `HANDLER` is the function executed when the route is matched.
+#### Route Methods
+- A route method is derived from one of the HTTP methods, and is attached to an instance of the express class.
+  - `GET` and `POST` are two of the most commonly used HTTP methods, followed by `PUT` and `DELETE`.
 
-
-
+- #### `get()`
+  - to handle GET requests
+  ```js
+  app.get('/', function (req, res) => {
+    res.send('Hello from Express!');
+  });
+  ```
+- #### `post()`
+  - to handle POST requests
+  ```js
+  app.post('/', function (req, res) {
+    res.send('Got a POST request')
+  })
+  ```
+- #### `put()`
+  - to handle PUT requests
+  ```js
+  app.put('/user', function (req, res) {
+    res.send('Got a PUT request at /user')
+  })
+  ```
+- #### `delete()`
+  - to handle DELETE requests
+  ```js
+  app.delete('/user', function (req, res) {
+    res.send('Got a DELETE request at /user')
+  })
+  ```
+#### Route Paths
+- Route paths, in combination with a request method, define the endpoints at which requests can be made.
+  - Route paths can be strings, string patterns, or regular expressions.
 
 #### Listening for HTTP Connections
 - To start the server listening for HTTP connections from clients, call the `app.listen()` method passing:
