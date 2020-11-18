@@ -15,7 +15,7 @@
 - Pug is available via npm:
 `npm install - g pug-cli`
 
-#### Pug Syntax <a class="syntax"></a>
+#### Pug Syntax <a id="syntax"></a>
 - **whitespace sensitive**: Pug uses indentation to work out with tags are nested inside each other.
   ```pug
   div.remark
@@ -58,7 +58,7 @@
     //Visible comment.
     ```
 
-#### Rendering Proccess of Pug <a class="render"></a>
+#### Rendering Proccess of Pug <a id="render"></a>
 
 #### `pug.compile(source, options)`
 - will compile the Pug source code into a JavaScript function that takes a data object (called “locals”) as an argument.
@@ -99,7 +99,7 @@
     // => '<string>of pug</string>'
     ```
 
-#### Options <a class="options"></a>
+#### Options <a id="options"></a>
 - All API methods accept the following set of options:
 
 | Option                   | Accepts         | Action                                                                                                                                                                                                                                                       |
@@ -117,7 +117,7 @@
 | `name`                   | `string`        | The name of the template function. Only applies to `compileClient` functions. Defaults to `'template'`.                                                                                                                                                      |
 
 
-#### Template Inheritance <a class="inheritance"></a>
+#### Template Inheritance <a id="inheritance"></a>
 - Pug supports template inheritance. Template inheritance works via the `block` and `extends` keywords.
    #### `block`
    - in a template, a `block` is simply a "block" of Pug that a child template may replace.
@@ -170,7 +170,7 @@
 - **Unbuffered code** starts with a minus (`-`). It doesn’t directly add anything to the output, but its values may be used from within Pug.
 - **Buffered code**, on the other hand, starts with an equals (`=`). It evaluates a JavaScript expression and outputs the result.  
 
-#### Interpolation <a class="interpolation"></a>
+#### Interpolation <a id="interpolation"></a>
 - String interpolation is the process of replacing one or more placeholders in a template with a corresponding value.
   - buffered input offers one method of doing this.
 - Another is using `#{}`. Here, Pug will evaluate any code between the curly brackets, escape it, and render it into the template
@@ -191,7 +191,7 @@
   | element   | Used in square bracket syntax `#[]`. The HTML element (in Pug syntax, not normal HTML syntax) will be evaluated and output inline with the surrounding Pug code.                                                                                                                                                                                                                                                   |
 
 
-#### Iteration <a class="iteration"></a>
+#### Iteration <a id="iteration"></a>
 - Pug supports two primary methods of iteration: `each` and `while`.
    #### `each`
   Iterate over arrays and objects in a template:
