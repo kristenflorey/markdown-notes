@@ -39,27 +39,43 @@ const app = express();
 
 #### Requests
 ##### Configure The Routing For Your Application
-- determining how an application should respond to a client request
+- **Routing** refers to determining how an application should respond to a client request
+  - Each route can have one or more handler functions, which are executed when the route is matched.
+- Route definition takes the following structure:
+` app.METHOD(PATH, HANDLER)`
+  - `app` is an instance of express.
+  - `METHOD` is an HTTP request method, in lowercase.
+      - `get()` - to handle GET requests
+        ```js
+        app.get('root/path/', (req, res) => {
+          // To send a plain text response to the client, call the res.send() method passing in the desired content
+          res.send('Hello from Express!');
+        });
+        ```
+      - `post()` - to handle POST requests
+        ```js
+        app.post('/', function (req, res) {
+          res.send('Got a POST request')
+        })
+        ```
+      - `put()` - to handle PUT requests
+        ```js
+        app.put('/user', function (req, res) {
+          res.send('Got a PUT request at /user')
+        })
+        ```
+      - `delete()` - to handle DELETE requests
+        ```js
+        app.delete('/user', function (req, res) {
+          res.send('Got a DELETE request at /user')
+        })
+        ```
+    - `GET` and `POST` are two of the most commonly used HTTP methods, followed by `PUT` and `DELETE`.
+  - `PATH` is a path on the server.
+  - `HANDLER` is the function executed when the route is matched.
 
-- The Express Application (`app`) object contains a collection of methods for defining an application's routes:
-  - `get()` - to handle GET requests
-  - `post()` - to handle POST requests
-  - `put()` - to handle PUT requests
-  - `delete()` - to handle DELETE requests
-- `GET` and `POST` are two of the most commonly used HTTP methods, followed by `PUT` and `DELETE`.
 
 
-
-
-- To define a route to handle requests, call the app.get() method passing:
-  - the route path
-  - a route handler function
-  ```js
-  app.get('root/path/', (req, res) => {
-    // To send a plain text response to the client, call the res.send() method passing in the desired content
-    res.send('Hello from Express!');
-  });
-  ```
 
 #### Listening for HTTP Connections
 - To start the server listening for HTTP connections from clients, call the `app.listen()` method passing:
@@ -72,6 +88,11 @@ const app = express();
   ```
 ---
 ### Express Methods
+
+- #### `express.json([options])`
+- This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
+
+
 | Request                  | Application    | Response            | Router            | Middleware         |
 |--------------------------|----------------|---------------------|-------------------|--------------------|
 | `req.accepts()`          | `app.delete()`     | `res.`append()` ()`     | `router.all()`    | `bodyParser()`     |
