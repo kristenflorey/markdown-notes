@@ -1,5 +1,14 @@
 # Express.js
 
+#### Jump to...
+  - [Routing](#routing)
+    - [Methods](#routingmethods)
+    - [Paths](#paths)
+    - [Parameters](#parameters)
+    - [Handlers](#handlers)
+  - [Middleware](#middleware)
+  - [Express Properties](#properties)
+  - [Express Methods](#methods)
 #### Installing Express
 - Open terminal window in your project folder and initialize npm
 `npm init -y`
@@ -37,7 +46,7 @@ const app = express();
 ```
 - The `app` variable holds a reference to an Express Application (`app`) object. You'll call methods on the `app` object as you build out your web application.
 
-### Routing
+### Routing <a id="routing"></a>
 - **Routing** refers to determining how an application should respond to a client request
   - Each route can have one or more handler functions, which are executed when the route is matched.
 - Route definition takes the following structure:
@@ -46,7 +55,7 @@ const app = express();
   - `METHOD` is an HTTP request method, in lowercase.
   - `PATH` is a path on the server.
   - `HANDLER` is the function executed when the route is matched.
-#### Route Methods
+#### Route Methods <a id="routingmethods"></a>
 - A route method is derived from one of the HTTP methods, and is attached to an instance of the express class.
   - `GET` and `POST` are two of the most commonly used HTTP methods, followed by `PUT` and `DELETE`.
 
@@ -78,13 +87,13 @@ const app = express();
     res.send('Got a DELETE request at /user')
   })
   ```
-#### Route Paths
+#### Route Paths <a id="paths"></a>
 - Route paths, in combination with a request method, define the endpoints at which requests can be made.
   - Route paths can be strings, string patterns, or regular expressions.
   - Route paths can be based on regular expressions by surrounding search string with `/`s
 [List of root paths](https://expressjs.com/en/guide/routing.html)
 
-#### Route Parameters
+#### Route Parameters <a id="parameters"></a>
 - Route parameters are named URL segments that are used to capture the values specified at their position in the URL.
   - The captured values are populated in the `req.params` object, with the name of the route parameter specified in the path as their respective keys.
     ```
@@ -99,7 +108,7 @@ const app = express();
     })
     ```
 
-#### Route Handlers
+#### Route Handlers <a id="handlers"></a>
 - You can provide multiple callback functions that behave like [middleware](#middleware) to handle a request.
 - Route handlers can be in the form of a function, an array of functions, or combinations of both.
   - You can create chainable route handlers for a route path by using **`app.route()`**
@@ -156,7 +165,7 @@ app.listen(3000)
   app.listen(port, () => console.log(`Listening on port ${port}...`));
   ```
 ---
-### Express Methods
+### Express Methods <a id="methods"></a>
 
 - #### `express.json([options])`
 - This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
@@ -185,7 +194,7 @@ app.listen(3000)
 |                          |                | `res.type()`        |                   |                    |
 |                          |                | `res.vary()`        |                   |                    |
 
-### Express Properties
+### Express Properties <a id="properties"></a>
 | Request             | Response          | Application     |
 |---------------------|-------------------|-----------------|
 | `req.app`           | `res.app`         | `app.locals`    |
