@@ -63,3 +63,44 @@
 | `cache`                  | `boolean`       | If set to `true`, compiled functions are cached. `filename` must be set as the cache key. Only applies to `render` functions. Defaults to `false`.                                                                                                           |
 | `inlineRuntimeFunctions` | `boolean`       | Inline runtime functions instead of `require`-ing them from a shared version. For `compileClient` functions, the default is `true` (so that one does not have to include the runtime). For all other compilation or rendering types, the default is `false`. |
 | `name`                   | `string`        | The name of the template function. Only applies to `compileClient` functions. Defaults to `'template'`.                                                                                                                                                      |
+
+
+#### Iteration
+- Pug supports two primary methods of iteration: `each` and `while`.
+   #### `each`
+  Iterate over arrays and objects in a template:
+  ```pug
+  ul
+    each val in [1, 2, 3, 4, 5]
+      li= val
+  ```
+  Capture index as you iterate:
+  ```pug
+  ul
+    each val, index in ['zero', 'one', 'two']
+      li= index + ': ' + val
+  ```
+  Iterate over the keys in an object:
+  ```pug
+  ul
+    each val, key in {1: 'one', 2: 'two', 3: 'three'}
+      li= key + ': ' + val
+  ```
+  Add an `else` block in the case that the array or object are empty
+  ```pug
+  - var values = [];
+  ul
+    each val in values
+      li= val
+    else
+      li There are no values
+  ```
+  #### `while`
+  - Create a loop with `while` keyword:
+  ```pug
+  - var n = 0;
+  ul
+    while n < 4
+      li= n++
+  ```    
+---
