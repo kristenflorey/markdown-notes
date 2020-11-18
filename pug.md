@@ -65,6 +65,54 @@
 | `name`                   | `string`        | The name of the template function. Only applies to `compileClient` functions. Defaults to `'template'`.                                                                                                                                                      |
 
 
+#### Template Inheritance
+- Pug supports template inheritance. Template inheritance works via the `block` and `extends` keywords.
+   #### `block`
+   - in a template, a `block` is simply a "block" of Pug that a child template may replace.
+      - This process is recursive
+  - Pug blocks can optionally provide default content.    
+  ```pug
+  //- layout.pug
+  html
+    head
+      title My Site - #{title}
+      block scripts
+        script(src='/jquery.js')
+    body
+      block content
+      block foot
+        #footer
+          p some footer content
+  ```
+  - Pug allows you to `replace` (default), `prepend`, or `append` blocks.
+    - When using` block append` or `block prepend`, the word “`block`” is optional:
+    ```pug
+    //- page.pug
+    extends layout
+
+    append head
+      script(src='/vendor/three.js')
+      script(src='/game.js') 
+    ```
+
+  #### `extends`
+  - extend block layout with a path to the parent template
+  - define one of more blocks to override the parent block content
+  - also possible to override a block to provide additional blocks
+  ```pug
+  //- page-a.pug
+  extends layout.pug
+
+  block scripts
+    script(src='/jquery.js')
+    script(src='/pets.js')
+
+  block content
+    h1= title
+    - var pets = ['cat', 'dog']
+    each petName in pets
+      include pet.pug
+  ```
 #### Iteration
 - Pug supports two primary methods of iteration: `each` and `while`.
    #### `each`
