@@ -128,6 +128,7 @@ const app = express();
     - A `Router` instance is a complete middleware and routing system; for this reason, it is often referred to as a “mini-app”.
 
 ### Middleware <a id="middleware"></a>
+- **Express is a routing and middleware web framework** that has minimal functionality of its own: An Express application is essentially a series of middleware function calls.
 - Middleware functions are functions that have access to the request object (`req`), the response object (`res`), and the `next` function in the application’s request-response cycle.
   - The `next` function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware.
 - Middleware functions can perform the following tasks:
@@ -153,8 +154,6 @@ app.listen(3000)
 - `res`: HTTP response argument to the middleware function
 - **`next`**: Callback argument to the middleware function
 
-
-
 #### Listening for HTTP Connections
 - To start the server listening for HTTP connections from clients, call the `app.listen()` method passing:
   - The desired port to use
@@ -164,7 +163,59 @@ app.listen(3000)
 
   app.listen(port, () => console.log(`Listening on port ${port}...`));
   ```
----
+
+#### Configurable Middleware
+- If you need your middleware to be configurable, export a function which accepts an options object or other parameters, which, then returns the middleware implementation based on the input parameters.
+
+```js
+module.exports = function (options) {
+  return function (req, res, next) {
+    // Implement the middleware function based on the options object
+    next()
+  }
+}
+```  
+
+The middleware can now be used as shown below.
+```js
+var mw = require('./my-middleware.js')
+
+app.use(mw({ option1: '1', option2: '2' }))
+```
+An Express Application can use the following types of middleware:
+  - ##### Application-level middleware
+    - Bind application-level middleware to an instance of the `app` object by using the `app.use()` and `app.METHOD()` functions, where `METHOD` is the HTTP method of the request that the middleware function handles (such as `GET`, `PUT`, or `POST`) in lowercase.
+  - ##### Router-level middleware
+    - Router-level middleware works in the same way as application-level middleware, except it is bound to an instance of `express.Router()`.
+    - Load router-level middleware by using the `router.use()` and `router.METHOD()` functions.
+  - ##### Error-handling
+    - Define [error-handling](https://expressjs.com/en/guide/error-handling.html) middleware functions in the same way as other middleware functions, except with four arguments instead of three, specifically with the signature (`err`, `req`, `res`, `next`)):
+      ```js
+      app.use(function (err, req, res, next) {
+        console.error(err.stack)
+        res.status(500).send('Something broke!')
+      })
+      ```
+  - ##### Built-in middleware
+  | Function                          | Action                                                      | Arguments                                                                        |
+|-----------------------------------|-------------------------------------------------------------|----------------------------------------------------------------------------------|
+| `express.static(root, [options])` | serves status assets such as HTML files, images, and so on. | `root`: specifies the root directory `options`: [options object](https://expressjs.com/en/4x/api.html#express.static) |
+| `express.json([options])`         | parses incoming requests with JSON payloads                 | `options`: [options object](https://expressjs.com/en/4x/api.html#express.json)                                      |
+| `express.urlencoded([options])`   | parses incoming requests with URL-encoded payloads          | `options`: [options object](https://expressjs.com/en/4x/api.html#express.urlencoded)                                      |
+  - ##### Third-party middleware
+    - Use third-party middleware to add functionality to Express apps.
+    - Install the Node.js module for the required functionality, then load it in your app at the application level or at the router level.
+    `$ npm install cookie-parser`
+    - The following example illustrates installing and loading the cookie-parsing middleware function cookie-parser.
+      ```js
+      const express = require('express')
+      const app = express()
+      const cookieParser = require('cookie-parser')
+
+      // load the cookie-parsing middleware
+      app.use(cookieParser())
+      ```
+
 ### Express Methods <a id="methods"></a>
 
 - #### `express.json([options])`
@@ -194,6 +245,9 @@ app.listen(3000)
 |                          |                | `res.type()`        |                   |                    |
 |                          |                | `res.vary()`        |                   |                    |
 
+
+
+
 ### Express Properties <a id="properties"></a>
 | Request             | Response          | Application     |
 |---------------------|-------------------|-----------------|
@@ -217,3 +271,5 @@ app.listen(3000)
 | `req.stale`         |                   |                 |
 | `req.subdomains`    |                   |                 |
 | `req.xhr`           |                   |                 |
+
+###
