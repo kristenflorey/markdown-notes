@@ -56,6 +56,7 @@ const app = express();
   - `METHOD` is an HTTP request method, in lowercase.
   - `PATH` is a path on the server.
   - `HANDLER` is the function executed when the route is matched.
+    - You can provide multiple callback functions that behave like [middleware](#middleware) to handle a [request](#methods).
 #### Route Methods <a id="routingmethods"></a>
 - A route method is derived from one of the HTTP methods, and is attached to an instance of the express class.
   - `GET` and `POST` are two of the most commonly used HTTP methods, followed by `PUT` and `DELETE`.
@@ -92,6 +93,7 @@ const app = express();
 - Route paths, in combination with a request method, define the endpoints at which requests can be made.
   - Route paths can be strings, string patterns, or regular expressions.
   - Route paths can be based on regular expressions by surrounding search string with `/`s
+
 [List of root paths](https://expressjs.com/en/guide/routing.html)
 
 #### Route Parameters <a id="parameters"></a>
