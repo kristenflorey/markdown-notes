@@ -5,6 +5,44 @@
 - Pug is available via npm:
 `npm install pug`
 
+#### Pug Syntax
+- **whitespace sensitive**: Pug uses indentation to work out with tags are nested inside each other.
+  ```pug
+  div.remark
+    p Pug rocks!!
+  ```
+   The code above produces this:
+  ```pug
+  <div class="remark">
+    <p>Pug rocks!!</p>
+  </div>
+  ```
+  - It doesn't matter what level of indentation you use, as long as the **level of indentation remains consistent**
+- **Pug doesn't have any closing tags**
+  - If no tag is specified, Pug will assume a `<div>` element.
+
+#### Classes, IDs and Attributes
+- **Classes** are expressed as `.className`
+- **IDs** are expressed as `#IDname`
+- **Attributes** are added using brackets
+
+#### Plain Text and Text Blocks
+- Pug provides various methods for adding plain text directly into the rendered HTML.
+  - Add plain text inline:
+  `h1.navbar-header We can write anything we want here …`
+  - Prefix a line with a pipe `|` character:
+    ```
+    p
+      | You are logged in as
+      | user@example.com
+    ```  
+  - When dealing with large blocks of text, you can just add a dot right after the tag name, or after the closing parenthesis, if the tag has attributes:
+    ```
+    p.
+      HTML TEXT.....
+    ```  
+#### Comments
+  - Comments in Pug can be escaped similar to Javascript with `//`
 
 #### Rendering Proccess of Pug
 
@@ -92,7 +130,7 @@
 
     append head
       script(src='/vendor/three.js')
-      script(src='/game.js') 
+      script(src='/game.js')
     ```
 
   #### `extends`
@@ -113,6 +151,15 @@
     each petName in pets
       include pet.pug
   ```
+
+#### Buffered vs Unbuffered Code
+- **Unbuffered code** starts with a minus (`-`). It doesn’t directly add anything to the output, but its values may be used from within Pug.
+- **Buffered code**, on the other hand, starts with an equals (`=`). It evaluates a JavaScript expression and outputs the result.  
+#### Interpolation
+- String interpolation is the process of replacing one or more placeholders in a template with a corresponding value.
+  - buffered input offers one method of doing this.
+- Another is using `#{}`. Here, Pug will evaluate any code between the curly brackets, escape it, and render it into the template
+
 #### Iteration
 - Pug supports two primary methods of iteration: `each` and `while`.
    #### `each`
@@ -150,5 +197,7 @@
   ul
     while n < 4
       li= n++
-  ```    
+  ```   
+ 
+
 ---
