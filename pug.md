@@ -1,5 +1,7 @@
 <img src="https://hackernoon.com/hn-images/1*PmL3-GUNxYP26qTSlVrmzw.png" width="400"/>
 
+# Pug
+- Pug (formerly known as Jade) is a preprocessor which simplifies the task of writing HTML. It also adds a ton of functionality, such as Javascript objects, conditionals, loops, mixins and templates.
 - Pug fully integrates with Express, a popular Node.js web framework, as a supported view engine.
 
 #### Installation
