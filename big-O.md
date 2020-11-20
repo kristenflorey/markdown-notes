@@ -36,7 +36,7 @@
 | O(n log n)           | [Linearithmic](#linearithmic)         |
 | O(n \* log(n))       | [Loglinear](#loglinear)               |
 | O(n<sup>2</sup>)     | [Polynomial](#polynomial) (Quadratic) |
-| O(n <sup> 3 </sup> ) | [Polynomial](#polynomial) (Cubic)                    |
+| O(n <sup> 3 </sup> ) | [Polynomial](#polynomial) (Cubic)     |
 | O(2 <sup> n </sup> ) | [Exponential](#exponential)           |
 | O(n!)                | [Factorial](#factorial)               |
 
@@ -54,6 +54,8 @@ _Click algorithm name for more details_
   - Print the first element from a list.
   - Find a value on a map.
 - Constant growth indicates the behavior stays constant for all values of n
+
+###
 
 #### Constant Growth
 
