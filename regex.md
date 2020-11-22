@@ -1,5 +1,7 @@
 ## Regular Expressions
 
+- Regular expressions are patterns used to match character combinations in strings.
+
 | Regular  Expression | Description                    |
 |---------------------|--------------------------------|
 | *                   | zero or more repitions         |
@@ -53,3 +55,20 @@ const replaced = str.replace(re, match => {
 });
 console.log(replaced);
 ```
+
+##### You construct a regular expression in one of two ways:
+- Using a regular expression literal, which consists of a pattern enclosed between slashes, as follows:
+```js
+let re = /ab+c/;
+```
+
+Regular expression literals provide compilation of the regular expression when the script is loaded. If the regular expression remains constant, using this can improve performance.
+
+- Or calling the constructor function of the RegExp object, as follows:
+```js
+let re = new RegExp('ab+c');
+```
+
+
+#### Escaping
+- If you need to use any of the special characters literally (actually searching for a "*", for instance), you must escape it by putting a backslash in front of it.
