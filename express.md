@@ -343,3 +343,13 @@ An Express Application can use the following types of middleware:
   - The `res.statusMessage` is set according to the status code.
   - The body will be the HTML of the status code message when in production environment, otherwise will be err.stack.
   - Any headers specified in an `err.headers` object
+
+## Template Inheritance
+- Pug supports template inheritance. Template inheritance works via the block and extends keywords.
+- In a template, a block is simply a “block” of Pug that a child template may replace. This process is recursive.
+- Pug blocks can provide default content, if appropriate. Providing default content is purely optional, though. The example below defines block scripts, block content, and block foot.
+
+#### Block `append` / `prepend`
+- Pug allows you to `replace` (default), `prepend`, or `append` blocks.
+  - When using block append or block prepend, the word “block” is optional.
+- Note that only named blocks and mixin definitions can appear at the top (unindented) level of a child template.
