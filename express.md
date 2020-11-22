@@ -328,4 +328,18 @@ An Express Application can use the following types of middleware:
 [Bootstrap Form Control](https://getbootstrap.com/docs/4.4/components/forms/)
 
 
-##
+## Error Handling
+- If you need to use any of the special characters literally (actually searching for a "*", for instance), you must escape it by putting a backslash in front of it.
+
+- Errors that occur in synchronous code inside route handlers and middleware require no extra work.
+  - If synchronous code throws an error, then Express will catch and process it.
+
+#### The default error handler
+- Express comes with a built-in error handler that takes care of any errors that might be encountered in the app.
+- This default error-handling middleware function is added at the end of the middleware function stack.
+- If you pass an error to `next()` and you do not handle it in a custom error handler, it will be handled by the built-in error handler; the error will be written to the client with the stack trace.
+- When an error is written, the following information is added to the response:
+  - The `res.statusCode` is set from `err.status` (or `err.statusCode`). If this value is outside the 4xx or 5xx range, it will be set to 500.
+  - The `res.statusMessage` is set according to the status code.
+  - The body will be the HTML of the status code message when in production environment, otherwise will be err.stack.
+  - Any headers specified in an `err.headers` object
