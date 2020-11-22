@@ -27,6 +27,23 @@ const fnName = function(parameters){
 const fnName = (parameter) => {
 }
 ```
+#### Rest Parameter
+```
+function f(a, b, ...theArgs) {
+  // ...
+}
+```
+#### Spread Operator
+```
+// for function calls:
+myFunction(...iterableObj);
+
+// For array literals or strings:
+[...iterableObj, '4', 'five', 6];
+
+// For object literals (new in ECMAScript 2018):
+let objClone = { ...obj };
+```
 #### Compound Assignment Operators
 | Name                            | Shorthand operator |
 |---------------------------------|--------------------|
@@ -203,6 +220,11 @@ new Promise((resolve, reject) => {
   // call reject(reason) to make the Promise fail	 
 });
 ```
+#### Static Methods
+```
+static methodName() { ... }
+static propertyName [= value];
+```
 #### Chaining Promises
 ```
 const promise = doSomething();
@@ -214,4 +236,46 @@ const promise2 = doSomething().then(successCallback, failureCallback);
 ```
 Promise.all([func1(), func2(), func3()])
 .then(([result1, result2, result3]) => { /* use result1, result2 and result3 */ });
+```
+#### try...catch
+```
+try {
+  try_statements
+}
+[catch [(exception_var)] {
+  catch_statements
+}]
+[finally {
+  finally_statements
+}]
+```
+- ##### Unconditional catch-block
+```
+try {
+  throw 'myException'; // generates an exception
+} catch (e) {
+  // statements to handle any exceptions
+  logMyErrors(e); // pass exception object to error handler
+}
+```
+- ##### Conditional catch-block
+```
+try {
+  myroutine(); // may throw three types of exceptions
+} catch (e) {
+  if (e instanceof TypeError) {
+    // statements to handle TypeError exceptions
+  } else if (e instanceof RangeError) {
+    // statements to handle RangeError exceptions
+  } else if (e instanceof EvalError) {
+    // statements to handle EvalError exceptions
+  } else {
+    // statements to handle any unspecified exceptions
+    logMyErrors(e); // pass exception object to error handler
+  }
+}
+```
+#### Extends
+```
+class ChildClass extends ParentClass { ... }
 ```
