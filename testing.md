@@ -60,7 +60,9 @@ the callback passed to describe is where we insert the actual tests
 3. TDD helps enforce code modularity.
     - A TDD developer is forced to think about their application in small, testable chunks - this ensures the developer will write each chunk to be modular and capable of individual testing.
 4. Better understanding of what the code should be doing.
-Writing tests for a piece of code ensures that the developer writing that code knows what the piece of code is trying to achieve.TDD Workflow
-Red: Write the tests and watch them fail (a failing test is red). It's important to ensure the tests initially fail so that you don't have false positives.
-Green: Write the minimum amount of code to ensure the tests pass (a passing test will be green).
-Refactor: Refactor the code you just wrote. Your job is not over when the tests pass! One of the most important things you do as a software developer is to ensure the code you write is easy to maintain and read.
+    - Writing tests for a piece of code ensures that the developer writing that code knows what the piece of code is trying to achieve.
+
+####TDD Workflow
+  - Red: Write the tests and watch them fail (a failing test is red). It's important to ensure the tests initially fail so that you don't have false positives.
+  - Green: Write the minimum amount of code to ensure the tests pass (a passing test will be green).
+  - Refactor: Refactor the code you just wrote. Your job is not over when the tests pass! One of the most important things you do as a software developer is to ensure the code you write is easy to maintain and read.
