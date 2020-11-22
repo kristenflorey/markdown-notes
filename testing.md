@@ -21,17 +21,19 @@ const chai = require("chai");
 const expect = chai.expect;
 const spies = require("chai-spies");
 chai.use(spies);
+```
+
 Importing assert module:
-const assert = require(“assert")
-describe()
-describe() is an organizational function. takes two parameters: descriptive string and a callback
+`const assert = require(“assert")`
+#### `describe()`
+- `describe()` is an organizational function. takes two parameters: descriptive string and a callback
 the callback passed to describe is where we insert the actual tests
-it()
-it goes inside the callback passed to describe
-accepts a descriptive string and a callback to set up our test
+#### `it()`
+- `it` goes inside the callback passed to describe
+- accepts a descriptive string and a callback to set up our test
 context
-an alias for the describe function
-denotes that we are setting up the context for a particular set of tests
+- an alias for the describe function
+- denotes that we are setting up the context for a particular set of tests
 
 
 Use the pre- and post-test hooks provided by Mocha
