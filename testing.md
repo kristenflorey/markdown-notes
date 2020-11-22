@@ -1,18 +1,21 @@
-Testing
-	Testing Frameworks
-runs tests and presents them to a user
-an assertion library is the code used to write tests
-some testing libraries have built in assertion libraries, others will need you to import to utilize them
-	Mocha
-Javascript testing framework that specializes in running tests and presenting them in an organized user friendly way
-widely used because of its flexibility
-supports a whole variety of different assertion libraries and DSL interfaces to best suit the developer
-DSL (Domain Specific Language) refers to a computer language specialized for a particular purpose
-will usually be familiar but syntactically slightly different from other languages
-Assertion libraries are used to actually write tests. Node has a library called Chai and Assert
-Use Chai to structure your tests using behavior-driven development principles.
+# Testing
+
+### Testing Frameworks
+  - runs tests and presents them to a user
+  - an assertion library is the code used to write tests
+  - some testing libraries have built in assertion libraries, others will need you to import to utilize them
+####	Mocha
+  - Javascript testing framework that specializes in running tests and presenting them in an organized user friendly way
+  - widely used because of its flexibility
+  - supports a whole variety of different assertion libraries and DSL interfaces to best suit the developer
+    - **DSL (Domain Specific Language)** refers to a computer language specialized for a particular purpose
+    - will usually be familiar but syntactically slightly different from other languages
+
+Assertion libraries are used to actually write tests. Node has a library called **Chai** and **Assert**
+  - Use Chai to structure your tests using behavior-driven development principles.
 to set up chai and chai spies:
 
+```
 // first npm install chai and chai-spies
 const chai = require("chai");
 const expect = chai.expect;
