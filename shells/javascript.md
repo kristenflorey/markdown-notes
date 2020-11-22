@@ -148,9 +148,38 @@ objectName.propertyName
 ```
 objectName['propertyName']
 ```
-#### Enumerate Object Properties
+#### Object Constructor Function
+```
+function Object(property, property, property) {
+  this.property = property;
+  this.property = property;
+  this.property = property;
+}
+```
+#### Defining Object Methods
+```
+objectName.methodname = functionName;
 
-
+let myObj = {
+  myMethod: function(params) {
+    statement
+  }
+```
+ OR
+```  
+  myOtherMethod(params) {
+    statement
+  }
+};
+```
+##### Calling Object Methods
+```
+object.methodname(params);
+```
+#### Deleting Properties
+```
+delete objectName.propertyName;
+```
 
 ### Classes
 ```
@@ -159,4 +188,30 @@ class ClassName {
     this.name = name
   }
 }
+```
+#### Inherting Properties
+```
+let newObj = new Object;
+```
+
+### Promises
+#### Create a Promise
+```
+new Promise((resolve, reject) => {				
+  // do some async stuff						
+  // call resolve(value) to make the Promise succeed
+  // call reject(reason) to make the Promise fail	 
+});
+```
+#### Chaining Promises
+```
+const promise = doSomething();
+const promise2 = promise.then(successCallback, failureCallback);
+// OR
+const promise2 = doSomething().then(successCallback, failureCallback);
+```
+#### Composition
+```
+Promise.all([func1(), func2(), func3()])
+.then(([result1, result2, result3]) => { /* use result1, result2 and result3 */ });
 ```
