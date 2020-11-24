@@ -49,7 +49,7 @@
   - Whereas encryption is a two-way function, hashing is a one-way function. **Hashed values cannot be translated back to their original input values.**
   - Now, whereas encryption is meant to protect data in transit, hashing is meant to verify that a file or piece of data hasn’t been altered—that it is authentic
     - Every hash value is unique. If two different files produce the same unique hash value this is called a collision and it makes the algorithm essentially useless.
-- Hashing is a popular way to
+- Hashing is a popular way of storing passwords.
 
 
 #### Salting
@@ -106,3 +106,69 @@ bcrypt.compare(someOtherPlaintextPassword, hash, function(err, result) {
     // result == false
 });
 ```
+##### `compareSync()`
+```
+bcrypt.compareSync("B4c0/\/", hash); // true
+bcrypt.compareSync("not_bacon", hash); // false
+```
+#### Promises
+- Bcrypt uses whatever Promise implementation is available in `global.Promise`
+- Async methods that accept a callback, return a `Promise` when callback is not specified if Promise support is available.
+```
+bcrypt.hash(myPlaintextPassword, saltRounds).then(function(hash) {
+    // Store hash in your password DB.
+});
+// Load hash from your password DB.
+bcrypt.compare(myPlaintextPassword, hash).then(function(result) {
+    // result == true
+});
+bcrypt.compare(someOtherPlaintextPassword, hash).then(function(result) {
+    // result == false
+});
+```
+##### with `async/await`
+```
+async function checkUser(username, password) {
+    //... fetch user from a db etc.
+
+    const match = await bcrypt.compare(password, user.passwordHash);
+
+    if(match) {
+        //login
+    }
+
+    //...
+}
+```
+
+#### API
+
+- `genSaltSync(rounds, minor)`
+  - `rounds` - [OPTIONAL] - the cost of processing the data. (default - 10)
+  - `minor - [OPTIONAL] - minor version of bcrypt to use. (default - b)
+- `genSalt(rounds, minor, cb)`
+  - `rounds` - [OPTIONAL] - the cost of processing the data. (default - 10)
+  - `minor` - [OPTIONAL] - minor version of bcrypt to use. (default - b)
+  - `cb` - [OPTIONAL] - a callback to be fired once the salt has been generated. uses eio making it asynchronous. If `cb` is not specified, a `Promise` is returned if `Promise` support is available.
+    - `err` - First parameter to the callback detailing any errors.
+    - `salt` - Second parameter to the callback providing the generated salt.
+- `hashSync(data, salt)`
+  - `data` - [REQUIRED] - the data to be encrypted.
+  - `salt` - [REQUIRED] - the salt to be used to hash the password. if specified as a number then a salt will be generated with the specified number of rounds and used (see example under Usage).
+- `hash(data, salt, cb)`
+  - `data` - [REQUIRED] - the data to be encrypted.
+  - `salt` - [REQUIRED] - the salt to be used to hash the password. if specified as a number then a salt will be generated with the specified number of rounds and used (see example under Usage).
+  - `cb` - [OPTIONAL] - a callback to be fired once the data has been encrypted. uses eio making it asynchronous. If `cb` is not specified, a `Promise` is returned if `Promise` support is available.
+    - `err` - First parameter to the callback detailing any errors.
+    - `encrypted` - Second parameter to the callback providing the encrypted form.
+- `compareSync(data, encrypted)`
+  - `data` - [REQUIRED] - data to compare.
+  - `encrypted` - [REQUIRED] - data to be compared to.
+- `compare(data, encrypted, cb)`
+  - `data` - [REQUIRED] - data to compare.
+  - `encrypted` - [REQUIRED] - data to be compared to.
+  - `cb` - [OPTIONAL] - a callback to be fired once the data has been compared. uses eio making it asynchronous. If `cb` is not specified, a `Promise` is returned if `Promise` support is available.
+    - `err` - First parameter to the callback detailing any errors.
+    - `same` - Second parameter to the callback providing whether the data and encrypted forms match [true | false].
+`getRounds(encrypted)` - return the number of rounds used to encrypt a given hash
+  - `encrypted` - [REQUIRED] - hash from which the number of rounds used should be extracted.
