@@ -7,6 +7,7 @@
     - [Parameters](#parameters)
     - [Handlers](#handlers)
   - [Middleware](#middleware)
+    - [Sessions](#sessions)
   - [Express Properties](#properties)
   - [Express Methods](#methods)
   - [Forms](#forms)
@@ -218,11 +219,77 @@ An Express Application can use the following types of middleware:
       // load the cookie-parsing middleware
       app.use(cookieParser())
       ```
+### Sessions <a id="sessions"></a>
+- Sessions build upon the idea of an HTTP cookie.
+  - Instead of storing data in the cookie itself, a unique identifier known as the **session ID** is stored. This session ID is linked to an object stored on the server.
+- Sessions give you a way to identify a series of requests as being connected to the same client.
+  - Once you know that a request is connected to a known client session, you can associate the data of that session without having to send that data to the client and rely upon them to send that data back to the server unaltered.
+#### Installing Express sessions
+```
+npm install express-session
+```
+
+#### Adding  `express-session` middleware to the `app` module.
+```
+const express = require('express');
+const session = require('express-session');
+
+const app = express();
+
+app.set('view engine', 'pug');
+app.use(session({
+  secret: 'a5d63fc5-17a5-459c-b3ba-6d81792158fc',
+  resave: false,
+  saveUninitialized: false,
+}));
+```
+- **`secret`**: This is the secret used to sign the session ID cookie. The secret value above was generated using the uuid npm package.
+  - The **uuid package** allows you to generate universally unique identifiers (UUIDs) from random cryptographically-strong values, a timestamp, or a user-supplied string.
+- **`resave`**: This option forces the session to be saved into the session store, even if the session was never modified during the request.
+- **`saveUninitialized`**: This forces an uninitialized session to be saved to the store. An uninitialized session is when a session is new but not modified.
+    - Not setting the resave and saveUninitialized options results in the following warning in the console:
+      ```
+      express-session deprecated undefined resave option; provide resave option app.js:8:9
+      express-session deprecated undefined saveUninitialized option; provide saveUninitialized option app.js:8:9
+      ```
+- **`name`**:  By default, the express-session middleware uses the name `connect.sid`.
+  - it's important to set a specific name property and separate each application's session cookies from each other.
+#### Session Store
+- Every session store must be an EventEmitter and implement specific methods. The following methods are the list of required, recommended, and optional.
+  - **Required methods** are ones that this module will always call on the store.
+  - **Recommended methods** are ones that this module will call on the store if available.
+  - **Optional methods** are ones this module does not call at all, but helps present uniform stores to users.
+
+  | Method                                | Required?   |                                                                                                                                                                                            |
+  |---------------------------------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | `store.all(callback)`                 | Optional    | Gets all sessions in the store as an array. The `callback` should be called as `callback(error, sessions)`.                                                                                |
+  | `store.destroy(sid, callback)`        | Required    | Destroys/deletes a session from the store given a session ID (`sid`). The `callback` should be called as `callback(error)` once the session is destroyed.                                  |
+  | `store.clear(callback)`               | Optional    | Deletes all sessions from the store. The `callback` should be called as `callback(error)` once the store is cleared.                                                                       |
+  | `store.length(callback)`              | Optional    | Gets the count of all sessions in the store. The `callback` should be called as `callback(error, len)`.                                                                                    |
+  | `store.get(sid, callback)`            | Required    | Gets a session from the store given a session ID (`sid`). The `callback` should be called as `callback(error, session)`.                                                                   |
+  | `store.set(sid, session, callback)`   | Required    | Upserts a session into the store given a session ID (`sid`) and session (`session`) object. The callback should be called as `callback(error)` once the session has been set in the store. |
+  | `store.touch(sid, session, callback)` | Recommended | Used to “touch” a given session given a session ID (`sid`) and session (`session`) object. The `callback` should be called as `callback(error)` once the session has been touched.         |
+- You can also configure session cookies with the following options that are not set by default: `domain`
+
+#### Drawbacks
+- Using sessions increases the overhead required to serve clients.
+- Server affinity, the ability of a router to send a request to the same server over and over for a specific client, can be an issue depending on the session store that you're using.
+
+#### Express-session options properties
+| Option    | Action                                                                                                                                                | Default Value |
+|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| `cookie`  | Settings object for the session ID cookie. The default value is  { path: '/', httpOnly: true, secure: false, maxAge: null }.                          |               |
+| `genid`   | Function to call to generate a new session ID. Provide a function that returns a string that will be used as a session ID.                            |               |
+| `proxy`   | Trust the reverse proxy when setting secure cookies (via the “X-Forwarded-Proto” header).                                                             |               |
+| `rolling` | Force the session identifier cookie to be set on every response. The expiration is reset to the original `maxAge`, resetting the expiration countdown | `false`       |
+| `store`   | The session store instance, defaults to a new `MemoryStore` instance                                                                                  |               |
+| `unset`   | Control the result of unsetting `req.session` (through delete, setting to null, etc.).                                                                | `keep`        |
 
 ### Express Methods <a id="methods"></a>
 
 - #### `express.json([options])`
 - This is a built-in middleware function in Express. It parses incoming requests with JSON payloads and is based on body-parser.
+
 
 
 | [Request](https://expressjs.com/en/4x/api.html#req)                  | [Application](https://expressjs.com/en/4x/api.html#app)    | [Response](https://expressjs.com/en/4x/api.html#res)            | [Router](https://expressjs.com/en/4x/api.html#router)            | Middleware         |
