@@ -49,3 +49,15 @@
 
 - **Salting** is a concept that typically pertains to password hashing. Essentially, it’s a unique value (`salt`) that can be added to the end of the password to create a different hash value. This adds a layer of security to the hashing process, specifically against brute force attacks.
   - A **brute force attack** is where a computer or botnet attempt every possible combination of letters and numbers until the password is found.
+
+## Bcrypt
+- BCrypt is a password hashing function that's widely used to hash user passwords.
+- Installing Bcrypt:
+```
+npm install bcryptjs
+```
+- Requiring it in your application:
+```
+const bcrypt = require('bcryptjs');
+```
+- You can either use BCrypt synchronously or asynchronously.
