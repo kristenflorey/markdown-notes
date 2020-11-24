@@ -355,7 +355,7 @@ function bubbleSort(array) {
   - Start an inner loop from the beginning until `i - 1`
     - If the current value of the outer loop is greater than the current value of the inner loop, swap those two values
 
-![bubble](https://s3-us-west-1.amazonaws.com/appacademy-open-assets/data_structures_algorithms/naive_sorting_algorithms/bubble_sort/images/BubbleSort.gif)
+<img src="https://s3-us-west-1.amazonaws.com/appacademy-open-assets/data_structures_algorithms/naive_sorting_algorithms/bubble_sort/images/BubbleSort.gif" />
 
 ---
 
@@ -431,7 +431,7 @@ function insertionSort(arr) {
   - Swap if necessary
   - Repeat until array is sorted
 
-## ![insertion](https://s3-us-west-1.amazonaws.com/appacademy-open-assets/data_structures_algorithms/naive_sorting_algorithms/insertion_sort/images/InsertionSort.gif)
+<img src=https://s3-us-west-1.amazonaws.com/appacademy-open-assets/data_structures_algorithms/naive_sorting_algorithms/insertion_sort/images/InsertionSort.gif />
 
 ## <b>Merge Sort</b> <a id="mergesort"></a>
 
