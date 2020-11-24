@@ -33,10 +33,19 @@
 6. The browser decrypts the data from the server and renders the decrypted information.
 
 
-#### Encoding
+##### Encoding
 - If you know the encoding scheme, you are able to manually decipher the encoded data into it's original form.
 
 #### Hashing
-- Hashing is the practice of using an algorithm to map data of any size to a fixed length. This is called a hash value (or sometimes hash code or hash sums or even a hash digest if you’re feeling fancy). **Hashed values cannot be translated back to their original input values.**
+- **Hashing** is the practice of using an algorithm to map data of any size to a fixed length. This is called a hash value (or sometimes hash code or hash sums or even a hash digest if you’re feeling fancy).
+  - Whereas encryption is a two-way function, hashing is a one-way function. **Hashed values cannot be translated back to their original input values.**
+  - Now, whereas encryption is meant to protect data in transit, hashing is meant to verify that a file or piece of data hasn’t been altered—that it is authentic
+    - Every hash value is unique. If two different files produce the same unique hash value this is called a collision and it makes the algorithm essentially useless.
+- Hashing is a popular way to
+
 
 #### Salting
+<img src="https://www.thesslstore.com/blog/wp-content/uploads/2019/03/salt.png" width="80"/>  
+
+- **Salting** is a concept that typically pertains to password hashing. Essentially, it’s a unique value (`salt`) that can be added to the end of the password to create a different hash value. This adds a layer of security to the hashing process, specifically against brute force attacks.
+  - A **brute force attack** is where a computer or botnet attempt every possible combination of letters and numbers until the password is found.
