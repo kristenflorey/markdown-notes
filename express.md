@@ -254,6 +254,18 @@ app.use(session({
       ```
 - **`name`**:  By default, the express-session middleware uses the name `connect.sid`.
   - it's important to set a specific name property and separate each application's session cookies from each other.
+
+
+  #### Express-session options properties
+  | Option    | Action                                                                                                                                                | Default Value |
+  |-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
+  | `cookie`  | Settings object for the session ID cookie. The default value is  { path: '/', httpOnly: true, secure: false, maxAge: null }.                          |               |
+  | `genid`   | Function to call to generate a new session ID. Provide a function that returns a string that will be used as a session ID.                            |               |
+  | `proxy`   | Trust the reverse proxy when setting secure cookies (via the “X-Forwarded-Proto” header).                                                             |               |
+  | `rolling` | Force the session identifier cookie to be set on every response. The expiration is reset to the original `maxAge`, resetting the expiration countdown | `false`       |
+  | `store`   | The session store instance, defaults to a new `MemoryStore` instance                                                                                  |               |
+  | `unset`   | Control the result of unsetting `req.session` (through delete, setting to null, etc.).                                                                | `keep`        |
+
 #### Session Store
 - Every session store must be an EventEmitter and implement specific methods. The following methods are the list of required, recommended, and optional.
   - **Required methods** are ones that this module will always call on the store.
@@ -275,15 +287,6 @@ app.use(session({
 - Using sessions increases the overhead required to serve clients.
 - Server affinity, the ability of a router to send a request to the same server over and over for a specific client, can be an issue depending on the session store that you're using.
 
-#### Express-session options properties
-| Option    | Action                                                                                                                                                | Default Value |
-|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------|
-| `cookie`  | Settings object for the session ID cookie. The default value is  { path: '/', httpOnly: true, secure: false, maxAge: null }.                          |               |
-| `genid`   | Function to call to generate a new session ID. Provide a function that returns a string that will be used as a session ID.                            |               |
-| `proxy`   | Trust the reverse proxy when setting secure cookies (via the “X-Forwarded-Proto” header).                                                             |               |
-| `rolling` | Force the session identifier cookie to be set on every response. The expiration is reset to the original `maxAge`, resetting the expiration countdown | `false`       |
-| `store`   | The session store instance, defaults to a new `MemoryStore` instance                                                                                  |               |
-| `unset`   | Control the result of unsetting `req.session` (through delete, setting to null, etc.).                                                                | `keep`        |
 
 ### Express Methods <a id="methods"></a>
 
