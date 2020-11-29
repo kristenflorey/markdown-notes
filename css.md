@@ -292,3 +292,12 @@ Remaining:
   * Direct descendent `>`
   * Direct sibling `+`
   * All siblings `~`
+
+
+---
+#### Vector Shadows
+```CSS
+.element {
+  filter: drop-shadow(6px 6px 10px #404040);
+}
+```
