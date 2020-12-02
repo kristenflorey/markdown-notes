@@ -1,6 +1,6 @@
 # CSS
 
-What is a CSS rule?
+What is a CSS rule? hfjdkshfj
   - A CSS rule is a grouping of CSS properties that are applied to HTML elements
 
 How to link a stylesheet into an HTML page
