@@ -3,13 +3,82 @@
 - **React.js** is a declarative, efficient, and flexible JavaScript library for building user interfaces. It lets you compose complex UIs from small and isolated pieces of code called **components**.
   - React manages **the creation and updating of DOM nodes in your Web page**
 
+## Creating a React App
+```
+npx create-react-app <app-name>
+```
+#### Project Directory
+|Folder               |                                                             |
+|---------------------|-------------------------------------------------------------|
+| `src`               | Folder where we put all of the source code we write         |
+| `public`            | Folder that stores static files, like images, or a HTML file|
+| `node_modules`      | Folder that contains all of our project dependencies        |
+| `package.json`      | Records our project dependencies and configures our project |
+| `package-lock.json` | Records the exact version of packages that we install       |
+| `README.md`         | Instructions on how to use this project                     |
+
+### Available Scripts
+
+In the project directory, you can run:
+
+#### `npm start`
+- Runs the app in the development mode.
+- Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- The page will reload if you make edits.
+- You will also see any lint errors in the console.
+
+#### `npm test`
+
+- Launches the test runner in the interactive watch mode.
+- See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+#### `npm run build`
+
+- Builds the app for production to the `build` folder.
+- It correctly bundles React in production mode and optimizes the build for the best performance.
+- The build is minified and the filenames include the hashes.
+  - Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+#### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+- If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+- Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+- You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+####  Import the React and ReactDOM libraries
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+```
+
 ## Components
 - React applications are built as a combination of parent and child components. As the names suggest, each child component has a parent and a parent component will have one or more child components.
 - A **component** is a reusable piece of code, which defines how certain features should look and behave on the UI
-  - #### Functional Component
+
+#### Create a react component
+```js
+const App = () => {
+  return <div>Hi there!</div>;
+};
+```
+
+#### Take the react component and show it on the screen
+```js
+ReactDOM.render(<App />, document.querySelector('#root'));
+```
+
+<img src="./img/react-component-diagram.png" />
+
+  - ##### Functional Component
     - A functional component in React consumes arbitrary data that you pass to it using props object. It returns an object which describes what UI React should render.
     - Functional components are also known as **Stateless components**.
-  - #### Class-based Component
+  - ##### Class-based Component
     - The class-based component has an additional property `state`, which you can use to hold a component’s private data.
     - Since these components have a state, these are also known as **Stateful components**.
       - We extend `React.Component` class of React library to make class-based components in React.
@@ -18,7 +87,7 @@
     - #### `React.Component` subclasses
       - A component takes in parameters, called `props` (short for “properties”), and returns a hierarchy of views to display via the `render` method.
         - The `render` method returns a *description* of what you want to see on the screen. React takes the description and displays the result.
-        
+
     ```js
     class ShoppingList extends React.Component {
       render() {
@@ -57,6 +126,7 @@
 - JSX is a short form of *JavaScript Extended* and it is a way to write React components. Using JSX, you get the full power of JavaScript inside XML like tags.
 - You put JavaScript expressions inside `{}`.
   - The way it works is you write JSX to describe what your UI should look like. A **transpiler** like `Babel` converts that code into a bunch of `React.createElement()` calls.
+  <img src="./img/react-babel-diagram.png" />
   - The React library then uses those `React.createElement()` calls to construct a tree-like structure of DOM elements (in case of React for Web) or Native views (in case of React Native) and keeps it in the memory.
 <img src="https://cdn-media-1.freecodecamp.org/images/1*ighKXxBnnSdDlaOr5-ZOPg.png" />
 
