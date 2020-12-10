@@ -107,17 +107,17 @@ class ShoppingList extends React.Component {
 
 // Example usage: <ShoppingList name="Mark" />
 ```
-    - Here, `ShoppingList` is a **React component class**, or **React component type**.
-    - The `<div />` syntax is transformed at build time to `React.createElement('div')`.
-    - Example above is equivalent to:
-    ```js
-    return React.createElement('div', {className: 'shopping-list'},
-      React.createElement('h1', /* ... h1 children ... */),
-      React.createElement('ul', /* ... ul children ... */)
-    );
-    ```
-    - #### `React.PureComponent` subclasses
-      - `React.PureComponent` is similar to `React.Component`. The difference between them is that `React.Component` doesn’t implement `shouldComponentUpdate()`, but `React.PureComponent` implements it with a shallow prop and state comparison.
+  - Here, `ShoppingList` is a **React component class**, or **React component type**.
+  - The `<div />` syntax is transformed at build time to `React.createElement('div')`.
+  - Example above is equivalent to:
+```js
+return React.createElement('div', {className: 'shopping-list'},
+  React.createElement('h1', /* ... h1 children ... */),
+  React.createElement('ul', /* ... ul children ... */)
+);
+```
+  - #### `React.PureComponent` subclasses
+    - `React.PureComponent` is similar to `React.Component`. The difference between them is that `React.Component` doesn’t implement `shouldComponentUpdate()`, but `React.PureComponent` implements it with a shallow prop and state comparison.
 
 ### Props
 - Components receive data via an argument traditionally named `props`.
