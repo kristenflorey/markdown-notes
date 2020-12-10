@@ -1,7 +1,19 @@
-<img src="https://miro.medium.com/max/700/1*dLaDL-lSN0iprzmOpmM7zQ.png"/>
+<img src="https://miro.medium.com/max/700/1*dLaDL-lSN0iprzmOpmM7zQ.png" width="400px"/>
 
 - **React.js** is a declarative, efficient, and flexible JavaScript library for building user interfaces. It lets you compose complex UIs from small and isolated pieces of code called **components**.
   - React manages **the creation and updating of DOM nodes in your Web page**
+
+### Jump to...
+
+- [React Scripts](#scriptss)
+- [JSX](#jsx)
+- [Components](#components)
+  - [Functional Components](#functional-components)
+  - [Class-based Components](#class-components)
+  - [Nested Components](#nested-components)
+- [Props](#props)
+- [Fragments](#fragments)
+---
 
 ## Creating a React App
 ```
@@ -17,7 +29,7 @@ npx create-react-app <app-name>
 | `package-lock.json` | Records the exact version of packages that we install       |
 | `README.md`         | Instructions on how to use this project                     |
 
-### Available Scripts
+### Available Scripts <a id="scripts"></a>
 
 In the project directory, you can run:
 
@@ -57,7 +69,39 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 ```
 
-## Components
+## JSX <a id="jsx"></a>
+- JSX is a short form of *JavaScript Extended* and it is a way to write React components. Using JSX, you get the full power of JavaScript inside XML like tags.
+- You put JavaScript expressions inside `{}`.
+  - The way it works is you write JSX to describe what your UI should look like. A **transpiler** like `Babel` converts that code into a bunch of `React.createElement()` calls.
+  <img src="./img/react-babel-diagram.png" />
+  - The React library then uses those `React.createElement()` calls to construct a tree-like structure of DOM elements (in case of React for Web) or Native views (in case of React Native) and keeps it in the memory.
+<img src="https://cdn-media-1.freecodecamp.org/images/1*ighKXxBnnSdDlaOr5-ZOPg.png" />
+
+#### HTML attributes in JSX
+  - ###### Plain HTML:
+  ```html
+  <a class="nav-link" href="/home">
+    <img src="home">
+    Home
+  </a>
+  ```
+  - ###### JSX:
+  ```html
+  const navList = (
+    <ul>
+      <li className="selected">
+        <a href="/pets">Pets</a>
+      </li>
+      <li>
+        <a href="/owners">Owners</a>
+      </li>
+    </ul>
+  );
+  ```
+  - **Note: in JSX classes are referred to as `className`**
+
+
+## Components <a id="components"></a>
 - React applications are built as a combination of parent and child components. As the names suggest, each child component has a parent and a parent component will have one or more child components.
 - A **component** is a reusable piece of code, which defines how certain features should look and behave on the UI
 
@@ -68,45 +112,57 @@ const App = () => {
 };
 ```
 
-#### Take the react component and show it on the screen
+#### Converting to virtual DOM
+- Take the react component and show it on the screen
 ```js
 ReactDOM.render(<App />, document.querySelector('#root'));
 ```
 
+##### Updating the DOM
+<img src="https://appacademy-open-assets.s3-us-west-1.amazonaws.com/Modular-Curriculum/content/react-redux/topics/intro-to-react/assets/react-example-virtual-dom-diff.svg" />
+
+#### Functional vs Class Components
+
 <img src="./img/react-component-diagram.png" />
 
-  - ##### Functional Component
-    - A functional component in React consumes arbitrary data that you pass to it using props object. It returns an object which describes what UI React should render.
+  - ##### Functional Component <a id="functional-components"></a>
+    - A functional component in React consumes arbitrary data that you pass to it using `props` object. It returns an object which describes what UI React should render.
     - Functional components are also known as **Stateless components**.
-  - ##### Class-based Component
+      - You must return something from a function component. You **cannot return undefined from a function component**. If you don't want to render anything, then return null instead.
+  - ##### Class-based Component <a id="class-components"></a>
     - The class-based component has an additional property `state`, which you can use to hold a component’s private data.
     - Since these components have a state, these are also known as **Stateful components**.
       - We extend `React.Component` class of React library to make class-based components in React.
       - The `render()` method must be present in your class as React looks for this method in order to know what UI it should render on screen.
   <img src="https://cdn-media-1.freecodecamp.org/images/1*rPUhERO1Bnr5XdyzEwNOwg.png" />
 
-  - #### `React.Component` subclasses
+  ### Props <a id="props"></a>
+  - Components receive data via an argument traditionally named `props`.
+  -  React elements can accept `props` from its **parent** or from wherever it is created or rendered. `props` is an object that gets passed down from the **parent** function component into the **child** function component.
+    - The **keys** of the `props` object passed into a function component is defined in the same way as an HTML attribute
+
+  - ##### `React.Component` subclasses
       - A component takes in parameters, called `props` (short for “properties”), and returns a hierarchy of views to display via the `render` method.
         - The `render` method returns a *description* of what you want to see on the screen. React takes the description and displays the result.
 
-```js
-class ShoppingList extends React.Component {
-  render() {
-    return (
-      <div className="shopping-list">
-        <h1>Shopping List for {this.props.name}</h1>
-        <ul>
-          <li>Instagram</li>
-          <li>WhatsApp</li>
-          <li>Oculus</li>
-        </ul>
-      </div>
-    );
-  }
-}
+    ```js
+    class ShoppingList extends React.Component {
+      render() {
+        return (
+          <div className="shopping-list">
+            <h1>Shopping List for {this.props.name}</h1>
+            <ul>
+              <li>Instagram</li>
+              <li>WhatsApp</li>
+              <li>Oculus</li>
+            </ul>
+          </div>
+        );
+      }
+    }
 
-// Example usage: <ShoppingList name="Mark" />
-```
+    // Example usage: <ShoppingList name="Mark" />
+    ```
   - Here, `ShoppingList` is a **React component class**, or **React component type**.
   - The `<div />` syntax is transformed at build time to `React.createElement('div')`.
   - Example above is equivalent to:
@@ -116,21 +172,86 @@ return React.createElement('div', {className: 'shopping-list'},
   React.createElement('ul', /* ... ul children ... */)
 );
 ```
-  - #### `React.PureComponent` subclasses
+  - ##### `React.PureComponent` subclasses
     - `React.PureComponent` is similar to `React.Component`. The difference between them is that `React.Component` doesn’t implement `shouldComponentUpdate()`, but `React.PureComponent` implements it with a shallow prop and state comparison.
 
-### Props
-- Components receive data via an argument traditionally named `props`.
-- Parent components can decide the data that its children should show by passing only a subset of what it has to its children. Data is never passed up from the child to the parent.
+#### Nested Function Components <a id="nested-components"></a>
+- To render a function component in another function component, wrap the desired nested function component in JSX tags just like you would a regular HTML tag in the return of the outer function component.
+  ```js
+  function NavLinks() {
+    return (
+      <ul>
+        <li className="selected">
+          <a href="/pets">Pets</a>
+        </li>
+        <li>
+          <a href="/owners">Owners</a>
+        </li>
+      </ul>
+    );
+  }
 
-## JSX
-- JSX is a short form of *JavaScript Extended* and it is a way to write React components. Using JSX, you get the full power of JavaScript inside XML like tags.
-- You put JavaScript expressions inside `{}`.
-  - The way it works is you write JSX to describe what your UI should look like. A **transpiler** like `Babel` converts that code into a bunch of `React.createElement()` calls.
-  <img src="./img/react-babel-diagram.png" />
-  - The React library then uses those `React.createElement()` calls to construct a tree-like structure of DOM elements (in case of React for Web) or Native views (in case of React Native) and keeps it in the memory.
-<img src="https://cdn-media-1.freecodecamp.org/images/1*ighKXxBnnSdDlaOr5-ZOPg.png" />
+  function NavBar() {
+    return (
+      <nav>
+        <h1>Pet App</h1>
+        <NavLinks />
+      </nav>
+    );
+  }
+  ```
+  - The `NavBar` component is the **parent** of the `NavLinks` component, which means `NavBar` is rendering the `NavLinks` component as its **child**.
 
+###### Interpolating values into JSX with curly braces
+```js
+function NavBar() {
+  const world = "world"
+  return (
+    <nav>
+      <h1>Pet App</h1>
+      <NavLinks hello={world} />
+    </nav>
+  );
+}
+```
+  - `NavLinks` will know that the `props` key of `hello` has a value of `world`
+  - React will invoke the `NavLinks` function with the `props` object as the first argument.
+    - This is true for any function component. This means that you can expect the first parameter of a function component to be an object that has its keys and values determined by the parent component.
+
+###### Destructing the `props` object
+- Destructuring `props` can help make code more readable
+- You can explicitly define which `props` the child component should be expecting by destructuring the `props` object in the function component's parameter.
+```js
+function NavLinks({ hello, color }) {
+  return (
+    <ul>
+      <li>
+        <a href="/hello">{hello}</a>
+      </li>
+      <li className="selected">
+        <a href="/pets">Pets</a>
+      </li>
+      <li>
+        <a href="/owners">Owners</a>
+      </li>
+    </ul>
+  );
+}
+```
+## Fragments <a id="fragments"></a>
+- React also provides a component for rendering multiple elements without a wrapper.
+  ### `React.Fragment`
+  - The `React.Fragment` component lets you return multiple elements in a `render()` method without creating an additional DOM element:
+  ```js
+  render() {
+    return (
+      <React.Fragment>
+        Some text.
+        <h2>A heading</h2>
+      </React.Fragment>
+    );
+  }
+  ```  
 
 ## Creating React Elements
 - Each JSX element is just syntactic sugar for calling `React.createElement()`
@@ -177,21 +298,5 @@ return React.createElement('div', {className: 'shopping-list'},
   [Additional `children` functions](https://reactjs.org/docs/react-api.html#reactchildren)
 
 
-## Fragements
-- React also provides a component for rendering multiple elements without a wrapper.
-  ### `React.Fragment`
-  - The `React.Fragment` component lets you return multiple elements in a `render()` method without creating an additional DOM element:
-  ```js
-  render() {
-    return (
-      <React.Fragment>
-        Some text.
-        <h2>A heading</h2>
-      </React.Fragment>
-    );
-  }
-  ```
-## Updating the DOM
-- When calling `ReactDOM.render`, React would compare the new element tree with the old element tree, figure out that one class was missing on that one `li` element, and remove that and only that from the real DOM.
 
 ---
