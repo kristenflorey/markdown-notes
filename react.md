@@ -84,28 +84,29 @@ ReactDOM.render(<App />, document.querySelector('#root'));
       - We extend `React.Component` class of React library to make class-based components in React.
       - The `render()` method must be present in your class as React looks for this method in order to know what UI it should render on screen.
   <img src="https://cdn-media-1.freecodecamp.org/images/1*rPUhERO1Bnr5XdyzEwNOwg.png" />
-    - #### `React.Component` subclasses
+
+  - #### `React.Component` subclasses
       - A component takes in parameters, called `props` (short for “properties”), and returns a hierarchy of views to display via the `render` method.
         - The `render` method returns a *description* of what you want to see on the screen. React takes the description and displays the result.
 
-    ```js
-    class ShoppingList extends React.Component {
-      render() {
-        return (
-          <div className="shopping-list">
-            <h1>Shopping List for {this.props.name}</h1>
-            <ul>
-              <li>Instagram</li>
-              <li>WhatsApp</li>
-              <li>Oculus</li>
-            </ul>
-          </div>
-        );
-      }
-    }
+```js
+class ShoppingList extends React.Component {
+  render() {
+    return (
+      <div className="shopping-list">
+        <h1>Shopping List for {this.props.name}</h1>
+        <ul>
+          <li>Instagram</li>
+          <li>WhatsApp</li>
+          <li>Oculus</li>
+        </ul>
+      </div>
+    );
+  }
+}
 
-    // Example usage: <ShoppingList name="Mark" />
-    ```
+// Example usage: <ShoppingList name="Mark" />
+```
     - Here, `ShoppingList` is a **React component class**, or **React component type**.
     - The `<div />` syntax is transformed at build time to `React.createElement('div')`.
     - Example above is equivalent to:
