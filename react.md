@@ -12,6 +12,7 @@
   - [Class-based Components](#class-components)
   - [Nested Components](#nested-components)
 - [Props](#props)
+- [State](#state)
 - [Fragments](#fragments)
 ---
 
@@ -129,12 +130,31 @@ ReactDOM.render(<App />, document.querySelector('#root'));
     - A functional component in React consumes arbitrary data that you pass to it using `props` object. It returns an object which describes what UI React should render.
     - Functional components are also known as **Stateless components**.
       - You must return something from a function component. You **cannot return undefined from a function component**. If you don't want to render anything, then return null instead.
+      ```js
+      const App = (props) => {
+
+        return <div></div>;
+      };
+      ```
   - ##### Class-based Component <a id="class-components"></a>
     - The class-based component has an additional property `state`, which you can use to hold a component’s private data.
     - Since these components have a state, these are also known as **Stateful components**.
       - We extend `React.Component` class of React library to make class-based components in React.
       - The `render()` method must be present in your class as React looks for this method in order to know what UI it should render on screen.
-  <img src="https://cdn-media-1.freecodecamp.org/images/1*rPUhERO1Bnr5XdyzEwNOwg.png" />
+      ```js
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+        }
+
+        render() {
+          return <div></div>
+        };
+      }
+      ```
+
+  #### Class Component Lifecycle    
+  <img src="./img/react-component-lifecycle.png" />
 
   ### Props <a id="props"></a>
   - Components receive data via an argument traditionally named `props`.
@@ -238,6 +258,42 @@ function NavLinks({ hello, color }) {
   );
 }
 ```
+
+## State <a id="state"></a>
+**State** is a JavaScript object that contains data relevant to a component
+- State must be initialized when a component is created
+- Updating `state` on a component causes the component to (almost) instantly rerender
+  -  State can **only** be updated using the function `setState`
+- **Only usable with class Components**
+```js
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { obj: null };
+
+    window.function(
+      object => {
+        this.setState({ obj: object });
+      }
+    )
+  }
+
+  render() {
+    return <div>Object: {this.state.obj}</div>
+  };
+}
+```
+|    | Chain of actions                                                  |
+|----|-------------------------------------------------------------------|
+| 1. | JS file loaded by browser                                         |
+| 2. | Instance of `App` component is created                            |
+| 3. | App components 'constructor' function gets called                 |
+| 4. | State object is created and assigned to the `this.state` property |
+| 5. | React calls the components render method                          |
+| 6. | App returns JSX, gets rendered to page as HTML                    |
+
+
 ## Fragments <a id="fragments"></a>
 - React also provides a component for rendering multiple elements without a wrapper.
   ### `React.Fragment`
@@ -251,12 +307,14 @@ function NavLinks({ hello, color }) {
       </React.Fragment>
     );
   }
-  ```  
+  ```
 
-## Creating React Elements
+---
+## React Methods
+### Creating React Elements
 - Each JSX element is just syntactic sugar for calling `React.createElement()`
 
-  ### `createElement()`
+  #### `createElement()`
   ```js
   React.createElement(
     type,
@@ -266,14 +324,14 @@ function NavLinks({ hello, color }) {
   ```
   - Create and return a new **React element** of the given type.
     - The type argument can be either a tag name string (such as `div` or `span`), a **React component** type (a class or a function), or a **React fragment type**.
-  ### `createFactory()`
+  #### `createFactory()`
   ```js
   React.createFactory(type)
   ```
   - Return a function that produces React elements of a given type.
     - Like `React.createElement()`, the type argument can be either a tag name string (such as `div` or `span`), a React component type (a class or a function), or a React fragment type.
-## Transforming Elements
-  ### `cloneElement()`
+### Transforming Elements
+  #### `cloneElement()`
   ```js
   React.cloneElement(
     element,
@@ -284,12 +342,12 @@ function NavLinks({ hello, color }) {
   - Clone and return a new React `element` using element as the starting point.
     - The resulting element will have the original element’s props with the new props merged in shallowly.
     - New children will replace existing children. `key` and `ref` from the original element will be preserved.
-  ### `isValidElement()`
+  #### `isValidElement()`
   ```js
   React.isValidElement(object)
   ```
   - Verifies the object is a React element. Returns `true` or `false`.
-  ### `React.Children`
+  #### `React.Children`
   ```js
   React.Children.map(children, function[(thisArg)])
   ```
