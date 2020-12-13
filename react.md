@@ -156,6 +156,8 @@ ReactDOM.render(<App />, document.querySelector('#root'));
   #### Class Component Lifecycle    
   <img src="./img/react-component-lifecycle.png" />
 
+  - **all of these functions have the same result as the [`useEffect`](#useEffect) hook**
+
   ### Props <a id="props"></a>
   - Components receive data via an argument traditionally named `props`.
   -  React elements can accept `props` from its **parent** or from wherever it is created or rendered. `props` is an object that gets passed down from the **parent** function component into the **child** function component.
@@ -261,6 +263,7 @@ function NavLinks({ hello, color }) {
 
 ## State <a id="state"></a>
 **State** is a JavaScript object that contains data relevant to a component
+- State is similar to `props`, but it is private and fully controlled by the component. `props` don't change over time, but `state` does.
 - State must be initialized when a component is created
 - Updating `state` on a component causes the component to (almost) instantly rerender
   -  State can **only** be updated using the function `setState`
@@ -293,7 +296,16 @@ class App extends React.Component {
 | 5. | React calls the components render method                          |
 | 6. | App returns JSX, gets rendered to page as HTML                    |
 
+##### State in function components:
+In order to use state in function components, you need to import `useState` from React
+```js
+import { useState } from 'react';
+```
+- While props are *immutable*, state changes over time. With *every* change to state, react will re-render the component.
+## Hooks
 
+#### useEffect Hook <a id="useEffect" ></a>
+- The `useEffect` hook lets your perform side effects in your function components.
 ## Fragments <a id="fragments"></a>
 - React also provides a component for rendering multiple elements without a wrapper.
   ### `React.Fragment`
