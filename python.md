@@ -7,6 +7,12 @@
   - [Strings](#strings)
     - [Range](#range)
     - [String Methods](#string-methods)
+- [Variables](#variables)
+- [Booleans](#booleans)
+  - [Logical Operators](#logical-operators)
+  - [Equality Operators](#equality-operators)
+  - [Identity Operators](#identity-operators)
+- [Conditionals](#conditionals)
 ---
 
 ### Python REPL
@@ -182,7 +188,7 @@ print(f'Your name is {first_name} {last_name}')
 | `s = "Hello World"` | `s.split()`          | `["Hello", "World"]`      |
 | `s = "i-am-a-dog"`  | `s.split("-")`       | `["i", "am", "a", "dog"]` |
 
-## String Testing methods
+#### String Testing methods
 
 |     Method    |                                                           Purpose                                                           |
 |:-------------:|:---------------------------------------------------------------------------------------------------------------------------:|
@@ -191,3 +197,134 @@ print(f'Your name is {first_name} {last_name}')
 | `isdecimal()` | returns `True` if the string consists only of numeric characters and is not blank.                                          |
 | `isspace()`   | returns `True` if the string consists only of spaces, tabs, and newlines and is not blank.                                  |
 | `istitle()`   | returns `True` if the string consists only of words that begin with an uppercase letter followed by only lowercase letters. |
+
+---
+### Variables <a id="variables"></a>
+- Python has no variable declaration keyword such as `let`, `var` or `const`. Instead, the assignment of a value automatically declares a variable.
+```py
+a = 7
+b = 'Marbles'
+print(a)         # => 7
+print(b)         # => Marbles
+```
+##### Null
+- Python's replacement for `null` is `None`. It is used to indicate a variable has no value.
+```py
+my_var = None
+print(my_var is None)     # => True
+```
+
+---
+### Booleans <a id="booleans"></a>
+ANY object can be tested for a truth value in an `if` statement or `while` loop even it is not a Boolean type
+Python considers an object to be true (notice the lower case 't') UNLESS it is one of the following:
+- constant: `None` or `False`
+- zero of any numeric type: 0, 0.0
+- empty sequence or collection
+  - string: `''`
+  - list: `[]`
+  - tuple: `()`
+  - dictionary: `{}`
+  - `set()`
+  - `range(0)`
+
+#### Logical Operators <a id="logical-operators"></a>
+| Python | JavaScript |
+|--------|------------|
+| and    | &&         |
+| or     | \|\|       |
+| not    | !          |
+```py
+# Logical AND
+print(True and True)    # => True
+print(True and False)   # => False
+print(False and False)  # => False
+
+# Logical OR
+print(True or True)     # => True
+print(True or False)    # => True
+print(False or False)   # => False
+
+# Logical NOT
+print(not True)             # => False
+print(not False and True)   # => True
+print(not True or False)    # => False
+```
+#### Equality Operators <a id="equality-operators"></a>
+|    |                          |
+|----|--------------------------|
+| >  | greater than             |
+| <  | less than                |
+| >= | greater than or equal to |
+| <= | less than or equal to    |
+| == | equal to                 |
+| != | not equal to             |
+
+#### Identity Operators <a id="identity-operators"></a>
+Python has a different way to handle strict comparisons:
+- `is` (strictly equal to)
+- `is not` (not strictly equal to)
+
+---
+### Conditionals <a id="conditionals"></a>
+#### if Statement
+In Python, an `if` statement consists of the following:
+- The `if` keyword
+- A condition (that is, an expression that evaluates to `True` or `False`)
+- A colon
+- Starting on the next line, an indented block of code (called the `if` clause)
+```py
+if name == 'Jeff':
+    print('Hi, Jeff.')
+```
+#### else Statement
+An else statement doesn’t have a condition, and in code, an else statement always consists of the following:
+- The `else` keyword
+- A colon
+- Starting on the next line, an indented block of code (called the `else` clause)
+```py
+if name == 'Jeff':
+    print('Hi, Jeff.')
+else:
+    print('Hello, stranger.')
+```
+#### elif Statement
+```py
+if name == 'Jeff':
+    print('Hi, Jeff.')
+elif age < 21:
+    print('You are not Jeff, kiddo.')
+```
+#### while Statement
+a while statement always consists of the following:
+- The `while` keyword
+- A condition (that is, an expression that evaluates to `True` or `False`)
+- A colon
+- Starting on the next line, an indented block of code (called the while clause)
+```py
+spam = 0
+while spam < 5:
+  print('Hello, world.')
+  spam = spam + 1
+```
+#### break Statement
+If the execution reaches a break statement, it immediately exits the while loop’s clause.
+```py
+spam = 0
+while True:
+  print('Hello, world.')
+  spam = spam + 1
+  if spam >= 5:
+    break
+```
+#### continue Statement
+When the program execution reaches a continue statement, the program execution immediately jumps back to the start of the loop and reevaluates the loop’s condition.
+```py
+spam = 0
+while True:
+  print('Hello, world.')
+  spam = spam + 1
+  if spam < 5:
+    continue
+  break
+```
