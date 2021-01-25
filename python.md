@@ -13,6 +13,7 @@
   - [Equality Operators](#equality-operators)
   - [Identity Operators](#identity-operators)
 - [Conditionals](#conditionals)
+- [Error Handling](#errors)
 ---
 
 ### Python REPL
@@ -327,4 +328,28 @@ while True:
   if spam < 5:
     continue
   break
+```
+
+---
+### Error Handling <a id="errors"></a>
+- An error that occurs while a program is executing is called an **exception**.
+- The process of detecting these execution errors is often referred to as **catching exceptions**.
+
+#### try...except
+```py
+a = 321
+try:
+    print(len(a))
+except:
+    print('Silently handle error here')
+
+    # Optionally include a correction to the issue
+    a = str(a)
+    print(len(a))
+
+```
+Outputs:
+```
+Silently handle error here
+3
 ```
