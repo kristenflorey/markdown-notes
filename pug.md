@@ -1,5 +1,6 @@
 <img src="https://hackernoon.com/hn-images/1*PmL3-GUNxYP26qTSlVrmzw.png" width="400"/>
 
+
 #### Jump to...
 - [Syntax](#syntax)
 - [Rendering](#render)
@@ -45,12 +46,12 @@
     p
       | You are logged in as
       | user@example.com
-    ```  
+    ```
   - When dealing with large blocks of text, you can just add a dot right after the tag name, or after the closing parenthesis, if the tag has attributes:
     ```
     p.
       HTML TEXT.....
-    ```  
+    ```
 #### Comments
   - Comments in Pug can be escaped similar to Javascript with `//`
     ```
@@ -122,7 +123,7 @@
    #### `block`
    - in a template, a `block` is simply a "block" of Pug that a child template may replace.
       - This process is recursive
-  - Pug blocks can optionally provide default content.    
+  - Pug blocks can optionally provide default content.
   ```pug
   //- layout.pug
   html
@@ -168,7 +169,7 @@
 
 #### Buffered vs Unbuffered Code
 - **Unbuffered code** starts with a minus (`-`). It doesn’t directly add anything to the output, but its values may be used from within Pug.
-- **Buffered code**, on the other hand, starts with an equals (`=`). It evaluates a JavaScript expression and outputs the result.  
+- **Buffered code**, on the other hand, starts with an equals (`=`). It evaluates a JavaScript expression and outputs the result.
 
 #### Interpolation <a id="interpolation"></a>
 - String interpolation is the process of replacing one or more placeholders in a template with a corresponding value.
@@ -228,7 +229,7 @@
   ul
     while n < 4
       li= n++
-  ```   
+  ```
 ---
 
 ---
